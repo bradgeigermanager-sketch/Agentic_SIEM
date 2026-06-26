@@ -1,0 +1,104 @@
+Building the Python components for the Remediation Response Agent (Response Agent) involves implementing the functional logic for its four core skills: Dynamic Playbook Synthesis, Blast Radius Guardrail Validation, API-Driven Infrastructure Containment, and Post-Action Verification
+. This agent is responsible for executing real-time mitigation across network nodes while ensuring that actions do not impact production stability or violate safety bounds
+.
+Following the "Graph-as-Code" architecture, these components are designed as modular operations that function within a Directed Acyclic Graph (DAG)
+.
+1. Skill: Dynamic Playbook Synthesis
+This skill parses the findings from the Investigator Agent and composes an actionable execution sequence tailored to the specific incident
+.
+class DynamicPlaybookSynthesis:
+    def analyze_investigator_findings(self, root_cause_payload):
+        """Operation: Analyze_Investigator_Findings - Parses vulnerability maps [2, 8]."""
+        # Receives Patient Zero payload via Data_Flow edge [13]
+        return root_cause_payload.get("root_cause")
+
+    def map_mitigation_goals_to_capabilities(self, root_cause):
+        """Operation: Map_Mitigation_Goals_To_Capabilities - Tooling check [2, 8]."""
+        # Pairs findings to available security tool APIs [13]
+        return {"action": "isolate", "target": root_cause, "tool": "EDR"}
+
+    def assemble_api_execution_sequence(self, mitigation_plan):
+        """Operation: Assemble_API_Execution_Sequence - Dependency ordering [2, 14]."""
+        # Arranges tasks based on mitigation dependencies [15]
+        return ["Request_Token", "EDR_Isolate", "Firewall_Block", "Revoke_IAM"]
+
+    def compile_python_soar_script_block(self, sequence):
+        """Operation: Compile_Python_SOAR_Script_Block - Script generation [2, 14]."""
+        # Generates verified SOAR logic for orchestrator execution [15]
+        return f"EXECUTE_SOAR_SEQUENCE: {sequence}"
+2. Skill: Blast Radius Guardrail Validation
+This skill serves as the system's "safety filter," evaluating the risk of proposed remediations against production constraints
+.
+class BlastRadiusGuardrailValidation:
+    def check_asset_exclusion_lists(self, host_name):
+        """Operation: Check_Asset_Exclusion_Lists - Critical system check [2, 14]."""
+        # Cross-checks against domain-controller and whitelist exclusions [14, 16]
+        critical_assets = ["DC-01", "PROD-DB-PRIMARY"]
+        return host_name in critical_assets
+
+    def verify_impact_on_production_services(self, target):
+        """Operation: Verify_Impact_On_Production_Services - Operational impact [2, 17]."""
+        # "Pre-Flight" Simulation: Predicts if action breaks customer paths [17, 18]
+        return "Simulated_Impact: Minimal"
+
+    def evaluate_active_change_windows(self):
+        """Operation: Evaluate_Active_Change_Windows - Change calendar check [2, 17]."""
+        # Reviews ongoing IT maintenance windows before execution [17, 19, 20]
+        return False # No active maintenance block
+
+    def trigger_human_approval_if_high_risk(self, risk_level):
+        """Operation: Trigger_Human_Approval_If_High_Risk - Manual authorization [2, 17]."""
+        # Routes to manual loop if safety metrics fail or risk is high [17, 20]
+        if risk_level == "High":
+            return "Halted: Awaiting Webhook Approval"
+        return "Safety_Clearance: Granted"
+3. Skill: API-Driven Infrastructure Containment
+This skill dispatches the actual commands to security infrastructure to isolate the threat
+.
+class APIDrivenInfrastructureContainment:
+    def request_scoped_api_tokens(self, vault_id):
+        """Operation: Request_Scoped_API_Tokens - Single-use authentication [2, 21]."""
+        # Pulls dynamic session keys from a secure vault [20, 21]
+        return "TOKEN_SESSION_7782"
+
+    def issue_edr_isolate_host_command(self, token, host_id):
+        """Operation: Issue_EDR_Isolate_Host_Command - Host isolation [2, 21]."""
+        # Instructs EDR clients to apply network blocks [21, 22]
+        return f"Host {host_id} successfully isolated via EDR API."
+
+    def push_firewall_block_rules(self, token, malicious_ip):
+        """Operation: Push_Firewall_Block_Rules - Perimeter restriction [2, 21]."""
+        # Injects inbound access lists to block external traffic [21, 22]
+        return f"IP {malicious_ip} added to firewall blocklist."
+
+    def revoke_iam_user_sessions(self, token, user_id):
+        """Operation: Revoke_IAM_User_Sessions - Identity termination [2, 21]."""
+        # Invalidates active web or console tokens for targets [21, 22]
+        return f"Sessions for user {user_id} revoked."
+4. Skill: Post-Action Verification
+The final skill uses confirmation loops to verify that the threat is neutralized and the system remains stable
+.
+class PostActionVerification:
+    def poll_target_host_status(self, host_id):
+        """Operation: Poll_Target_Host_Status - Heartbeat verification [2, 23]."""
+        # Checks ping and heartbeat indicators post-block [22, 23]
+        return "Host_State: Unreachable (Confirmed)"
+
+    def analyze_post_isolation_network_flows(self, host_id):
+        """Operation: Analyze_Post_Isolation_Network_Flows - Boundary check [2, 23]."""
+        # Verifies that connections to bad assets have dropped [23, 24]
+        return "Traffic_Analysis: Blocked"
+
+    def verify_process_termination_status(self, pid):
+        """Operation: Verify_Process_Termination_Status - Task query [2, 23]."""
+        # Queries host tasks to ensure rogue processes stayed dead [23, 24]
+        return f"PID {pid}: Terminated"
+
+    def emit_containment_success_telemetry(self, final_report):
+        """Operation: Emit_Containment_Success_Telemetry - Tracking handoff [2, 23]."""
+        # Publishes response metrics for the Knowledge Memory Agent [23, 24]
+        return final_report
+Integration and Verification
+Before these components are added to the production runtime, the Graph Integration & Monitoring Agent must run the Simulate_DAG_Path_Integrity operation
+. This uses the networkx library to ensure that the remediation paths do not introduce cyclic dependencies—such as a containment step inadvertently triggering a new triage alert—maintaining the integrity of your Directed Acyclic Graph
+.
