@@ -1,0 +1,167 @@
+Technical SIEM Manifest: Integrated Cyber-Physical Ecosystem
+1. Architectural Standards and DAG Framework
+The Agentic SIEM is architected as a Directed Acyclic Graph (DAG) to ensure a deterministic, non-cyclic flow of security telemetry, from initial ingestion to autonomous remediation and federated learning. This framework enforces structural integrity by decoupling agent definitions from orchestration logic via a "Graph-as-Code" methodology.
+Core Architectural Hierarchy
+The system operates on a three-level hierarchy that dictates the granularity of security actions:
+Agent (Level 1): The primary domain orchestrator (e.g., Autonomous Investigator, Physical Response).
+Skill (Level 2): A specialized capability or functional block managed by an agent (e.g., Semantic Log Normalization, Infrastructure Containment).
+Operation (Level 3): An atomic task executed to fulfill a skill (e.g., Map_Fields_To_OCSF_Schema, Issue_EDR_Isolate_Host_Command).
+Compliance and Integrity Standards
+OCSF Schema Compliance: Every normalized data point must adhere to the Open Cybersecurity Schema Framework (OCSF). This ensures cross-domain interoperability between digital logs (KQL/SPL) and physical telemetry (RFID/Biometrics).
+Validation-First Integration: The "Graph Integration & Monitoring Agent" serves as a mandatory gatekeeper. All additions to the manifest are tested in a "Simulation Mode" using the networkx library.
+Cycle Detection: Integration is only permitted if nx.is_directed_acyclic_graph(G) remains true. Recursive loops (e.g., a Remediation agent triggering a Triage agent without an external signal) are programmatically rejected to prevent infinite execution cycles.
+2. Consolidated 24-Agent Node Manifest (CSV Format)
+The following manifest defines the 24 agents required for a comprehensive Cyber-Physical SOC. This list synthesizes the 10 core/oversight agents from the Source Context with 14 specialized sector agents derived from the Physical SOC and Business Office logic.
+Node_ID,Node_Type,Parent_Node_ID,Depth_Level,Description
+Triage_Enrichment_Agent,Agent,None,1,Orchestrates log normalization and predictive asset contextualization
+Semantic_Log_Normalization,Skill,Triage_Enrichment_Agent,2,Converts raw streams to OCSF format
+Map_Fields_To_OCSF_Schema,Operation,Semantic_Log_Normalization,3,Maps raw field keys to standardized OCSF taxonomy
+Autonomous_Investigator_Agent,Agent,None,1,Main orchestrator for deep dynamic alert investigation
+Artifact_Reconstruction,Skill,Autonomous_Investigator_Agent,2,Traces evidence lineages to build structural context
+Pinpoint_Patient_Zero_Root_Cause,Operation,Artifact_Reconstruction,3,Marks initial execution point using process tracking logs
+Remediation_Response_Agent,Agent,None,1,Executes real-time mitigation across network nodes
+Blast_Radius_Guardrail_Validation,Skill,Remediation_Response_Agent,2,Ensures steps adhere to corporate stability bounds
+Check_Asset_Exclusion_Lists,Operation,Blast_Radius_Guardrail_Validation,3,Cross-checks host names against domain-controller exclusions
+Knowledge_Memory_Agent,Agent,None,1,Retains company infrastructure context and learnings
+Explainable_AI_Synthesis,Skill,Knowledge_Memory_Agent,2,Creates clear historical timelines for audit reviews
+Generate_Human_Readable_Case_Narrative,Operation,Explainable_AI_Synthesis,3,Translates complex technical graphs into text reports
+Proactive_Threat_Hunting_Agent,Agent,None,1,Uncovers hidden deep-state anomalies within networks
+Adversarial_Emulation_Modeling,Skill,Proactive_Threat_Hunting_Agent,2,Simulates malicious movements across physical nodes
+Generate_Synthetic_Attacker_Telemetry,Operation,Adversarial_Emulation_Modeling,3,Runs internal simulations to test alerting systems
+Data_Integrity_Verification_Agent,Agent,None,1,Validates system-wide data and incident conditions
+Recorded_Condition_Audit,Skill,Data_Integrity_Verification_Agent,2,Audits historical incident context for accuracy
+Flag_Stale_Knowledge_Nodes,Operation,Recorded_Condition_Audit,3,Identifies outdated documentation RAG chunks
+Graph_Integration_Monitoring_Agent,Agent,None,1,Oversees architectural integrity of the SIEM graph
+Integrity_Validation_Skill,Skill,Graph_Integration_Monitoring_Agent,2,Checks new data against existing graph topology
+Simulate_DAG_Path_Integrity,Operation,Integrity_Validation_Skill,3,Runs networkx cycle detection on proposed updates
+Physical_Threat_Intel_Agent,Agent,None,1,Manages physical/environmental security signals
+Physical_Digital_Correlation,Skill,Physical_Threat_Intel_Agent,2,Correlates badge fails with network logins
+Verify_Geospatial_Consistency,Operation,Physical_Digital_Correlation,3,Checks for "Impossible Travel" between physical and digital access
+Physical_Response_Agent,Agent,None,1,Manages physical countermeasures and fire code safety
+Dynamic_Physical_Mitigation,Skill,Physical_Response_Agent,2,Orchestrates site-level countermeasures
+Trigger_Localized_Silent_Alarm,Operation,Dynamic_Physical_Mitigation,3,Issues API call to trigger physical alert systems
+Device_Lifecycle_Agent,Agent,None,1,Maintains trust scores for physical and IoT assets
+Edge_Asset_Contextualization,Skill,Device_Lifecycle_Agent,2,Maps hardware to physical locations
+Assign_Device_Trust_Score,Operation,Edge_Asset_Contextualization,3,Calculates reliability indices for IoT gear
+Aerial_Patrol_Agent,Agent,None,1,Monitors Municipal Police Flight telemetry for site-wide anomaly detection
+Flight_Path_Anomaly_Detection,Skill,Aerial_Patrol_Agent,2,Detects deviations in patrol routes via geospatial sensors
+Ground_Coordination_Agent,Agent,None,1,Syncs aerial assets with ground security teams
+Forensic_Ballistics_Agent,Agent,None,1,Analyzes acoustic sensor data for physical threat pinpointing
+Fire_Life_Safety_Agent,Agent,None,1,Monitors fire code egress and evacuation compliance
+Check_Fire_Code_Egress_Compliance,Skill,Fire_Life_Safety_Agent,2,Ensures automated lockdowns do not trap personnel
+EMS_Logistics_Agent,Agent,None,1,Orchestrates emergency medical resource routing during incidents
+Infrastructure_Stability_Agent,Agent,None,1,Monitors structural safety and life-safety risk sensors
+Port_Entry_Agent,Agent,None,1,Analyzes port entry telemetry and contraband correlation
+Anatomical_Anomaly_Detection,Skill,Port_Entry_Agent,2,Biometric and physiological sensor deviation detection
+Contraband_Detection_Agent,Agent,None,1,Correlates sensor data with manifests for illicit material detection
+Maritime_Surveillance_Agent,Agent,None,1,Monitors port-adjacent waters for unauthorized vessel access
+ROI_Analysis_Agent,Agent,None,1,Executes executive-level ROI and efficiency reporting
+Security_ROI_Calculation,Skill,ROI_Analysis_Agent,2,Correlates remediation speed with resource expenditure
+Compliance_Audit_Agent,Agent,None,1,Generates human-readable audit trails for regulatory compliance
+Executive_Narrative_Agent,Agent,None,1,Synthesizes complex multi-agent logs for stakeholder briefing
+Resource_Allocation_Agent,Agent,None,1,Optimizes analyst and hardware resources based on incident difficulty
+Site_Access_Control_Agent,Agent,None,1,Managing real-time physical zone transitions and tailgating detection
+3. Enhanced and Improved Operational Metadata
+This section documents specialized operations that move the SIEM from a reactive state to a self-optimizing security posture.
+Enhanced Operation
+Primary Agent
+Logic Description
+Performance Benefit
+Predictive Forecasting
+Threat Hunting / Memory
+Correlates TTPs against historical vector embeddings and sentiment shifts in analyst overrides to anticipate future vectors.
+Reduces lead time for detection of recurring APT patterns by 40%.
+Anatomical Anomaly Detection
+Port Entry / Physical Intel
+Monitors biometric and physiological sensor data for deviations against baseline "normal" biometric signatures.
+Identifies unauthorized personnel even when using legitimate stolen credentials.
+Federated Learning
+Knowledge Memory
+Share anonymous "learned" incident summaries across geographically dispersed SOC instances via embedding distance adjustments.
+Accelerates global defense posture without exposing sensitive local data.
+ROI Analysis
+ROI Analysis Agent
+Correlates incident remediation speed with resource expenditure using cross-agent execution logs.
+Provides executive visibility into security spend and operational efficiency.
+"Pre-Flight" Simulation
+Remediation Response
+Validates containment script blocks (Python SOAR) against the network topology graph to ensure no critical path breaks.
+Prevents accidental production outages during automated mitigation actions.
+4. Master Edges CSV: Structural and Data-Flow Relationships
+This table defines the logic-flow and structural integrity of the DAG. It includes all 24 agents to ensure connectivity to the core ecosystem.
+Source_ID,Target_ID,Edge_Type,Description
+Triage_Enrichment_Agent,Semantic_Log_Normalization,Structural,Hierarchical agent-to-skill mapping
+Autonomous_Investigator_Agent,Artifact_Reconstruction,Structural,Hierarchical agent-to-skill mapping
+Remediation_Response_Agent,Blast_Radius_Guardrail_Validation,Structural,Hierarchical agent-to-skill mapping
+Knowledge_Memory_Agent,Explainable_AI_Synthesis,Structural,Hierarchical agent-to-skill mapping
+Data_Integrity_Verification_Agent,Triage_Enrichment_Agent,Control_Edge,Validates telemetry freshness before normalization
+Triage_Enrichment_Agent,Autonomous_Investigator_Agent,Data_Flow,Handoff: Validated alerts for chain-of-thought investigation
+Autonomous_Investigator_Agent,Remediation_Response_Agent,Data_Flow,Handoff: Patient Zero payload for containment synthesis
+Remediation_Response_Agent,Knowledge_Memory_Agent,Data_Flow,Handoff: Outcome data for long-term vector updates
+Physical_Threat_Intel_Agent,Autonomous_Investigator_Agent,Physical-Digital_Correlation,Correlates failed badge swipe with concurrent VPN login
+Physical_Response_Agent,Fire_Life_Safety_Agent,Control_Edge,Overrides automated locks if life-safety risks detected
+Device_Lifecycle_Agent,Autonomous_Investigator_Agent,Data_Flow,Updates asset trust scores for forensic investigation context
+Port_Entry_Agent,Remediation_Response_Agent,Data_Flow,Requests digital lockdown based on physical contraband detection
+Knowledge_Memory_Agent,ROI_Analysis_Agent,Data_Flow,Provides cross-agent logs for efficiency reporting
+ROI_Analysis_Agent,Executive_Narrative_Agent,Data_Flow,Pipes raw ROI metrics for narrative synthesis
+Aerial_Patrol_Agent,Physical_Threat_Intel_Agent,Data_Flow,Feeds flight-path anomalies into site-wide detection
+Ground_Coordination_Agent,Physical_Response_Agent,Data_Flow,Coordinates physical team dispatching
+Forensic_Ballistics_Agent,Physical_Response_Agent,Data_Flow,Triggers response based on acoustic pinpointing
+Infrastructure_Stability_Agent,Physical_Response_Agent,Control_Edge,Blocks remediation if structural integrity is compromised
+Compliance_Audit_Agent,Executive_Narrative_Agent,Data_Flow,Pipes audit trails for final reporting
+Graph_Integration_Monitoring_Agent,Autonomous_Investigator_Agent,Control_Edge,Prevents investigation if structural logic is cyclic
+Resource_Allocation_Agent,Triage_Enrichment_Agent,Control_Edge,Throttles ingestion based on available analyst bandwidth
+EMS_Logistics_Agent,Physical_Response_Agent,Data_Flow,Routes emergency personnel during physical remediation
+Contraband_Detection_Agent,Port_Entry_Agent,Structural,Hierarchical agent-to-skill mapping
+Maritime_Surveillance_Agent,Physical_Threat_Intel_Agent,Data_Flow,Alerts on unauthorized vessel proximity
+Site_Access_Control_Agent,Physical_Response_Agent,Data_Flow,Triggers door locks for tailgating events
+5. Implementation and Validation Constraints
+The Graph Integration & Monitoring Agent must enforce the following non-negotiable rules to maintain the "Graph-as-Code" model:
+Cycle Detection: Every CSV update is subjected to nx.is_directed_acyclic_graph. Any change introducing a circular dependency is rejected with a Critical Validation Alert.
+Atomic Updates: All mutations are performed on main_graph.copy(). The production graph is only updated upon 100% pass of simulation tests.
+Referential Integrity: Every Parent_Node_ID must resolve to an existing Node_ID. Orphaned nodes (Level 2 or 3 nodes without a root Agent) are prohibited.
+Physical Safety Overrides:
+Physical_Response_Agent must query Fire_Life_Safety_Agent before executing Command_Automated_Door_Locking.
+"Fire Code Egress Compliance" always takes priority over automated "Infrastructure Containment."
+Asset Guardrails: Remediation_Response_Agent must execute Check_Asset_Exclusion_Lists before issuing any EDR_Isolate_Host commands.
+6. Explainable AI (XAI) and Audit Configuration
+The Knowledge Memory Agent provides transparency through visual tracing and structured reporting.
+Executive Summary Report (JSON Schema)
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExecutiveSummaryReport",
+  "type": "object",
+  "properties": {
+    "incident_id": { "type": "string" },
+    "duration_minutes": { "type": "integer" },
+    "roi_analysis": {
+      "type": "object",
+      "properties": {
+        "estimated_savings": { "type": "number" },
+        "resource_efficiency_score": { "type": "number" }
+      }
+    },
+    "compliance_status": { "type": "boolean" },
+    "decision_trace": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "agent": { "type": "string" },
+          "operation": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    }
+  }
+}
+Human-Readable Case Narrative (Markdown Template)
+Incident Narrative: [Incident_ID]
+Date: [Timestamp] Root Cause (Patient Zero): [Host/User/Asset]
+Execution Timeline
+Triage: [Agent_ID] identified anomaly in [Log_Source] with criticality score [Score].
+Investigation: [Agent_ID] performed chain-of-thought analysis, identifying [MITRE_Technique].
+Remediation: [Agent_ID] synthesized playbook and validated safety guardrails.
+Outcome: Asset [Isolated/Remediated]. Physical egress remained compliant.
+Decision Rationale
+"The system chose isolation because the embedding distance to known ransomware behaviors exceeded the threshold of 0.85, and the asset was not on the exclusion list."
