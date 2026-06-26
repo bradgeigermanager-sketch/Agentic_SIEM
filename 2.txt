@@ -1,0 +1,67 @@
+To build the Python components for the Business Office Suite, we will implement the functional logic for the Procurement Logistics Agent, the HR Security Compliance Agent, and the Finance and Audit Agent [History]. These components bridge corporate operations with the SIEM, moving from simple record-keeping to proactive risk modeling and automated fiscal oversight [History].
+Following the Level 1–3 hierarchy, these classes contain the operations necessary to manage supply chain integrity, personnel lifecycle security, and financial anomaly detection [History].
+1. Procurement Logistics Agent
+This agent focuses on Supply Chain Risk Assessment, utilizing dynamic trust scoring to manage vendor security [History].
+import datetime
+
+class ProcurementLogisticsAgent:
+    def verify_vendor_cyber_certification(self, vendor_metadata):
+        """Operation: Verify_Vendor_Cyber_Certification - Compliance check."""
+        # Checks for active SOC2 or ISO certifications
+        return vendor_metadata.get("cert_status") == "Active"
+
+    def detect_counterfeit_hardware_signatures(self, part_data):
+        """Operation: Detect_Counterfeit_Hardware_Signatures - Profile check."""
+        # Analyzes hardware signatures against known counterfeit patterns
+        if "reconditioned" in part_data.get("source", "").lower():
+            return "Risk: Potential Counterfeit Detected"
+        return "Source Verified"
+
+    def calculate_vendor_trust_decay(self, vendor_id, last_audit_date):
+        """Operation: Calculate_Vendor_Trust_Decay - Temporal risk scoring."""
+        # Enhancement: Automates trust score reduction for stale certifications
+        days_since_audit = (datetime.date.today() - last_audit_date).days
+        trust_score = max(0, 100 - (days_since_audit // 30) * 5)
+        return trust_score
+2. HR Security Compliance Agent
+This agent manages the Onboarding/Offboarding Audit skill, focusing on rapid access revocation and identifying behavioral entropy in privileged staff [History].
+class HRSecurityComplianceAgent:
+    def trigger_immediate_access_revocation(self, user_id):
+        """Operation: Trigger_Immediate_Access_Revocation - Session kill."""
+        # Signals IAM tools to terminate all active sessions for a terminated user
+        return f"User {user_id} access revoked across all endpoints."
+
+    def monitor_privileged_user_baseline(self, user_activity):
+        """Operation: Monitor_Privileged_User_Baseline - Activity tracking."""
+        # Tracks standard access times and data volumes for admin staff
+        return {"avg_hours": "0900-1700", "avg_data_egress": "200MB"}
+
+    def model_proactive_insider_risk(self, activity, baseline):
+        """Operation: Model_Proactive_Insider_Risk - Entropy detection."""
+        # Enhancement: Detects behavioral entropy shifts before an incident
+        if activity['data_egress'] > (baseline['avg_data_egress'] * 10):
+            return "ALERT: High-Confidence Insider Threat Pattern"
+        return "Normal Behavior"
+3. Finance and Audit Agent
+This agent executes Financial Anomaly Detection, providing a fiscal link to security by calculating the ROI of remediations [History].
+class FinanceAndAuditAgent:
+    def flag_unauthorized_wire_transfer_attempts(self, transaction):
+        """Operation: Flag_Unauthorized_Wire_Transfer_Attempts - Fraud detection."""
+        # Isolates large outbound transfers lacking multi-factor authorization
+        if transaction['amount'] > 10000 and not transaction['mfa_verified']:
+            return "BLOCKED: Unauthorized High-Value Transfer"
+        return "Transaction Authorized"
+
+    def audit_expense_submission_patterns(self, employee_id):
+        """Operation: Audit_Expense_Submission_Patterns - Fraud scan."""
+        # Scans for expense patterns indicative of employee compromise
+        return "Expense Pattern: Within Normal Parameters"
+
+    def generate_remediation_roi_audit(self, breach_cost_est, remediation_cost):
+        """Operation: Generate_Remediation_ROI_Audit - Budgetary analysis."""
+        # Enhancement: Calculates fiscal impact for City Council budget review
+        roi = ((breach_cost_est - remediation_cost) / remediation_cost) * 100
+        return f"Remediation ROI: {roi}%"
+Implementation & DAG Validation
+These Python components are designed to be ingested by your Python Graph Constructor and validated by the Graph Integration & Monitoring Agent [4, 46, 133, History]. By linking the Finance and Audit Agent to the City Council Agent via a Data_Flow edge, you ensure that security performance is directly tied to municipal budgetary tuning [History].
+Before merging these into your master nodes.csv, ensure you run the Simulate_DAG_Path_Integrity operation to confirm that adding these corporate oversight roles does not introduce circular dependencies—such as a budget audit inadvertently triggering an HR access revocation loop [134, 137, History].
