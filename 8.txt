@@ -1,0 +1,110 @@
+Building the Python components for the Triage Enrichment Agent involves creating functional logic for its four primary skills: Semantic Log Normalization, Dynamic Intelligence Stitching, Graph-Based Asset Clustering, and Heuristic De-duplication
+. This agent serves as the entry point for the SIEM pipeline, transforming raw telemetry into high-fidelity, enriched incidents ready for the Autonomous Investigator Agent
+.
+Following the "Graph-as-Code" architecture, these operations are designed to be triggered sequentially within your Directed Acyclic Graph (DAG)
+.
+1. Skill: Semantic Log Normalization
+This skill handles the initial ingestion and structural validation of raw logs to ensure they meet the OCSF (Open Cybersecurity Schema Framework) standards
+.
+import json
+import pandas as pd
+
+class SemanticLogNormalization:
+    def ingest_raw_log_stream(self, raw_data):
+        """Operation: Ingest_Raw_Log_Stream - Normalizes raw ingestion [10]."""
+        return json.loads(raw_data)
+
+    def identify_log_source_type(self, log_dict):
+        """Operation: Identify_Log_Source_Type - Signature fingerprinting [11]."""
+        # Logic to identify if source is EDR, Firewall, Cloud, etc.
+        if "event_id" in log_dict: return "EDR"
+        return "Generic"
+
+    def map_fields_to_ocsf_schema(self, log_dict, source_type):
+        """Operation: Map_Fields_To_OCSF_Schema - Transform to standard [11]."""
+        # Simplified mapping logic
+        ocsf_log = {"category_name": source_type, "metadata": log_dict}
+        return ocsf_log
+
+    def validate_schema_compliance(self, ocsf_log):
+        """Operation: Validate_Schema_Compliance - Structure validation [11]."""
+        required_fields = ["category_name", "metadata"]
+        return all(field in ocsf_log for field in required_fields)
+2. Skill: Dynamic Intelligence Stitching
+This skill enriches normalized logs with external threat intelligence to calculate initial reputation scores
+.
+import re
+
+class DynamicIntelligenceStitching:
+    def extract_iocs(self, ocsf_log):
+        """Operation: Extract_IOCs_IP_Hash_Domain - Parsed indicators [12]."""
+        metadata_str = str(ocsf_log.get("metadata", ""))
+        ips = re.findall(r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b', metadata_str)
+        return {"ips": ips}
+
+    def query_threat_intel_apis(self, iocs):
+        """Operation: Query_Threat_Intel_APIs - External lookups [12]."""
+        # Mock API call
+        return {"reputation": "high_risk" if "8.8.8.8" in iocs['ips'] else "low_risk"}
+
+    def aggregate_reputation_scores(self, api_payload):
+        """Operation: Aggregate_Reputation_Scores - Scoring engine [13]."""
+        return 100 if api_payload["reputation"] == "high_risk" else 10
+
+    def append_context_to_metadata(self, ocsf_log, score):
+        """Operation: Append_Context_To_Alert_Metadata - Final context [13]."""
+        ocsf_log["threat_score"] = score
+        return ocsf_log
+3. Skill: Graph-Based Asset Clustering
+This skill maps the threat to specific internal assets and calculates the potential Blast Radius based on asset criticality
+.
+class GraphBasedAssetClustering:
+    def query_identity_provider_logs(self, ocsf_log):
+        """Operation: Query_Identity_Provider_Logs - Identity lookup [14]."""
+        return {"user": ocsf_log["metadata"].get("user_id"), "host": "Workstation-01"}
+
+    def fetch_cmdb_criticality(self, asset_info):
+        """Operation: Fetch_CMDB_Asset_Criticality - Enrich profiles [14]."""
+        # Mock CMDB lookup
+        return 10 if asset_info["host"] == "Server-Finance" else 1
+
+    def calculate_blast_radius(self, criticality, threat_score):
+        """Operation: Calculate_Blast_Radius_Score - Impact calculation [14]."""
+        return criticality * threat_score
+
+    def map_network_adjacency(self, blast_radius):
+        """Operation: Map_Network_Adjacency - Adjacent node mapping [15]."""
+        # Logic to find connected hosts via topology graph [16]
+        return ["Server-02", "Gateway-Internal"]
+4. Skill: Heuristic De-duplication
+The final skill aggregates related events into a single incident and escalates the severity based on the cumulative findings
+.
+import hashlib
+from datetime import datetime, timedelta
+
+class HeuristicDeduplication:
+    def hash_key_alert_attributes(self, ocsf_log):
+        """Operation: Hash_Key_Alert_Attributes - Unique identification [15]."""
+        raw_string = f"{ocsf_log.get('category_name')}_{ocsf_log.get('threat_score')}"
+        return hashlib.md5(raw_string.encode()).hexdigest()
+
+    def check_alert_time_windows(self, alert_hash, incident_cache):
+        """Operation: Check_Active_Alert_Time_Windows - Temporal windows [17]."""
+        # Check if same hash exists in last 5 minutes
+        return alert_hash in incident_cache
+
+    def merge_related_events(self, alert_hash, incident_cache):
+        """Operation: Merge_Related_Events_Into_Incident - Aggregation [17]."""
+        incident_cache[alert_hash]["count"] += 1
+        return incident_cache[alert_hash]
+
+    def update_severity_weight(self, incident):
+        """Operation: Update_Incident_Severity_Weight - Escalates score [17]."""
+        incident["final_severity"] = incident["count"] * 1.5
+        return incident
+Integration & Validation
+These components must be registered with the Python Graph Constructor
+. Before deployment, the Graph Integration & Monitoring Agent runs the Simulate_DAG_Path_Integrity operation to ensure these operations do not create cyclic dependencies—for instance, ensuring that a de-duplication step does not point back to initial ingestion
+.
+The final output of this agent, a validated high-fidelity alert, is handed off to the Autonomous Investigator Agent via a Data_Flow edge to initiate the Parse_Initial_Alert_Intent operation
+.
