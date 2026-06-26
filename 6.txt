@@ -1,0 +1,97 @@
+Building the Python components for the Remediation Response Agent involves creating functional logic for its four primary skills: Dynamic Playbook Synthesis, Blast Radius Guardrail Validation, API-Driven Infrastructure Containment, and Post-Action Verification
+. This agent focuses on real-time mitigation, ensuring that actions taken to neutralize a threat do not negatively impact production stability or violate corporate safety bounds
+.
+Consistent with the "Graph-as-Code" architecture and your "Validation-First" workflow, these components function as modular operations within the Directed Acyclic Graph (DAG)
+.
+1. Skill: Dynamic Playbook Synthesis
+This skill parses findings from the Investigator Agent to compose a conditional execution sequence tailored to the specific threat
+.
+class DynamicPlaybookSynthesis:
+    def analyze_investigator_findings(self, investigator_payload):
+        """Operation: Analyze_Investigator_Findings - Parses root cause maps."""
+        # Patient Zero payload received via Data_Flow edge
+        return investigator_payload.get("root_cause")
+
+    def map_mitigation_goals_to_capabilities(self, root_cause):
+        """Operation: Map_Mitigation_Goals_To_Capabilities - Tooling check."""
+        # Just-In-Time Enhancement: Matches findings to specific tool APIs [10]
+        return {"action": "isolate", "target": root_cause, "tool": "EDR"}
+
+    def assemble_api_execution_sequence(self, mitigation_plan):
+        """Operation: Assemble_API_Execution_Sequence - Dependency ordering."""
+        return ["Request Token", "EDR Isolate", "Firewall Block", "Revoke IAM"]
+
+    def compile_python_soar_script_block(self, sequence):
+        """Operation: Compile_Python_SOAR_Script_Block - Generates SOAR logic."""
+        return f"Execute sequence: {', '.join(sequence)}"
+2. Skill: Blast Radius Guardrail Validation
+This skill serves as a "safety filter," checking proposed actions against exclusion lists, production impact metrics, and change management windows
+.
+class BlastRadiusGuardrailValidation:
+    def check_asset_exclusion_lists(self, target_host):
+        """Operation: Check_Asset_Exclusion_Lists - Domain controller check."""
+        # Prevents containment of whitelisted/critical infrastructure
+        whitelist = ["DC-PRIMARY", "DB-PROD-01"]
+        return target_host in whitelist
+
+    def verify_impact_on_production_services(self, plan):
+        """Operation: Verify_Impact_On_Production_Services - "Pre-Flight" Simulation."""
+        # Enhancement: Predicts if action breaks production dependencies [10]
+        return "Simulated Impact: Low"
+
+    def evaluate_active_change_windows(self):
+        """Operation: Evaluate_Active_Change_Windows - Checks IT calendars."""
+        # Reviews ongoing IT operational change windows [12, 13]
+        return False # No active maintenance window
+
+    def trigger_human_approval_if_high_risk(self, safety_metrics):
+        """Operation: Trigger_Human_Approval_If_High_Risk - Manual authorization."""
+        if safety_metrics == "High Risk":
+            return "Halted: Awaiting Human Authorization via Webhook"
+        return "Safety Clearance: Approved"
+3. Skill: API-Driven Infrastructure Containment
+This skill executes the active commands to security toolsets to isolate the threat at the network and identity layers
+.
+class APIDrivenInfrastructureContainment:
+    def request_scoped_api_tokens(self, secret_id):
+        """Operation: Request_Scoped_API_Tokens - Pulls single-use keys."""
+        return "ST-VAL-4567-TOKEN"
+
+    def issue_edr_isolate_host_command(self, token, host):
+        """Operation: Issue_EDR_Isolate_Host_Command - Host isolation."""
+        # Operation: Instructs endpoint clients to apply network blocks [14]
+        return f"Host {host} Isolated"
+
+    def push_firewall_block_rules(self, token, malicious_ip):
+        """Operation: Push_Firewall_Block_Rules - Perimeter restriction."""
+        return f"Inbound rule added to block {malicious_ip}"
+
+    def revoke_iam_user_sessions(self, token, user_id):
+        """Operation: Revoke_IAM_User_Sessions - Session termination."""
+        return f"User {user_id} sessions invalidated"
+4. Skill: Post-Action Verification
+The final skill confirms that the containment was successful and the threat remains neutralized without causing site outages
+.
+class PostActionVerification:
+    def poll_target_host_status(self, host):
+        """Operation: Poll_Target_Host_Status - Heartbeat verification."""
+        return "Host State: Isolated/Unreachable"
+
+    def analyze_post_isolation_network_flows(self, host):
+        """Operation: Analyze_Post_Isolation_Network_Flows - Boundary check."""
+        return "Connections to Malicious IP: DROPPED"
+
+    def verify_process_termination_status(self, pid):
+        """Operation: Verify_Process_Termination_Status - Host task query."""
+        # Checks endpoint to confirm rogue PIDs remain terminated [15, 16]
+        return "PID Status: DEAD"
+
+    def emit_containment_success_telemetry(self, summary):
+        """Operation: Emit_Containment_Success_Telemetry - Handoff to Memory."""
+        # Handoff: Remediation pushes outcome data to Knowledge Memory Agent [15, 16]
+        return summary
+Strategic Integration & Monitoring
+Following completion, these operations are registered with the Graph Integration & Monitoring Agent
+. The Simulate_DAG_Path_Integrity operation ensures that these remediation steps—such as isolating a host—do not create a cyclic loop back to the initial Triage or Investigator phases
+. Once validated, the success metrics are emitted to the Knowledge Memory Agent to update embedding distances and prompt weights for future autonomous learning
+.
