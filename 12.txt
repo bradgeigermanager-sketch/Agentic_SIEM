@@ -1,0 +1,295 @@
+Technical Manifest: Unified Agentic SIEM and Cyber-Physical Registry
+1. Executive Architectural Paradigm: The Graph-as-Code Framework
+Security operations have reached a point of diminishing returns with traditional, linear workflows and brittle playbooks. This manifest details a strategic shift to a Directed Acyclic Graph (DAG) architecture, where security logic is managed as code. By implementing "Agentic" logic, we transform static detection and response into an autonomous lifecycle. In this framework, security tasks are not just sequences but dynamic nodes in a graph that allows for complex, multi-path orchestration from initial telemetry ingestion to remediation and long-term memory.
+The system is defined by a rigorous three-tier structural hierarchy to ensure modularity and system integrity:
+Level 1: Agents: High-level orchestrators responsible for specific security domains.
+Level 2: Skills: Domain-specific capabilities possessed by an agent (e.g., log normalization or playbook synthesis).
+Level 3: Operations: Atomic, executable tasks that serve as the leaf nodes of the graph (e.g., executing KQL queries or issuing EDR commands).
+The stability of this system is mathematically guaranteed by the DAG property. By utilizing the networkx library to enforce this constraint, the architecture prevents cyclic dependencies—circular loops that could lead to infinite execution cycles or system deadlocks. This mathematical rigor ensures predictable data flow and enables atomic updates to the security posture. This architectural theory underpins the specialized digital and physical defense agents defined in the registry below.
+2. Core Digital Defense: The Primary Agent Cluster
+The digital security lifecycle is managed by a cluster of five primary agents. These agents coordinate the transformation of raw telemetry into actionable intelligence, ensuring deep investigation and safe remediation while maintaining a continuous learning feedback loop.
+Primary Agent Profiles
+Triage Enrichment Agent: Orchestrates the transition from raw log streams to high-fidelity alerts. It performs OCSF schema normalization and dynamic intelligence stitching, utilizing heuristic deduplication and graph-based asset clustering to escalate only validated, enriched incidents to the investigator layer.
+Autonomous Investigator Agent: Serves as the main analyst orchestrator, utilizing "Chain-of-Thought" planning to formulate investigative hypotheses. It performs cross-telemetry pivoting across SIEM, EDR, and Cloud environments, reconstructing process trees and artifacts to isolate the "Patient Zero" root cause.
+Remediation Response Agent: Focuses on real-time mitigation through the synthesis of dynamic SOAR playbooks. It enforces critical "Pre-Flight" simulations and safety guardrails, checking asset exclusion lists and change windows before executing infrastructure containment commands like host isolation or session revocation.
+Knowledge Memory Agent: Acts as the system’s persistent intelligence store. It manages hierarchical memory via RAG (Retrieval-Augmented Generation), vectorizing architecture wikis and internal policies. It maintains a feedback loop that tunes agent prompt weights and embedding distances based on human analyst overrides.
+Proactive Threat Hunting Agent: Identifies stealthy risks through baseline anomaly detection, adversarial emulation, and long-tail entropy analysis. It proactively searches for indicators of lateral movement and command-and-control (C2) activity that bypass signature-based detections.
+Core Digital Agent Registry
+Node_ID
+Node_Type
+Parent_Node_ID
+Depth_Level
+Technical Description
+Triage_Enrichment_Agent
+Agent
+None
+1
+Orchestrates log normalization and intelligence stitching
+Semantic_Log_Normalization
+Skill
+Triage_Enrichment_Agent
+2
+Normalizes raw logs to OCSF schema
+Ingest_Raw_Log_Stream
+Operation
+Semantic_Log_Normalization
+3
+Ingests raw telemetry streams
+Identify_Log_Source_Type
+Operation
+Semantic_Log_Normalization
+3
+Fingerprints log source types
+Map_Fields_To_OCSF_Schema
+Operation
+Semantic_Log_Normalization
+3
+Maps fields to standardized OCSF format
+Validate_Schema_Compliance
+Operation
+Semantic_Log_Normalization
+3
+Validates structural integrity of normalized logs
+Dynamic_Intelligence_Stitching
+Skill
+Triage_Enrichment_Agent
+2
+Enriches logs with real-time threat intelligence
+Extract_IOCs_IP_Hash_Domain
+Operation
+Dynamic_Intelligence_Stitching
+3
+Parses IOCs from metadata
+Query_Threat_Intel_APIs
+Operation
+Dynamic_Intelligence_Stitching
+3
+Retrieves reputation from external APIs
+Aggregate_Reputation_Scores
+Operation
+Dynamic_Intelligence_Stitching
+3
+Consolidates scores into alert context
+Autonomous_Investigator_Agent
+Agent
+None
+1
+Orchestrates deep alert investigation
+Hypothesis_Generation_Planning
+Skill
+Autonomous_Investigator_Agent
+2
+Formulates logic via Chain-of-Thought
+Parse_Initial_Alert_Intent
+Operation
+Hypothesis_Generation_Planning
+3
+Extracts indicators from root alert payloads
+Generate_Chain_of_Thought_Sequence
+Operation
+Hypothesis_Generation_Planning
+3
+Outputs actionable analysis logic
+Cross_Telemetry_Pivoting
+Skill
+Autonomous_Investigator_Agent
+2
+Queries disparate system segments
+Execute_Queries_Across_SIEM_EDR_Cloud
+Operation
+Cross_Telemetry_Pivoting
+3
+Dispatches API queries to remote endpoints
+Remediation_Response_Agent
+Agent
+None
+1
+Executes mitigation across network nodes
+Dynamic_Playbook_Synthesis
+Skill
+Remediation_Response_Agent
+2
+Composes conditional mitigation steps
+Compile_Python_SOAR_Script_Block
+Operation
+Dynamic_Playbook_Synthesis
+3
+Generates executable orchestration scripts
+Blast_Radius_Guardrail_Validation
+Skill
+Remediation_Response_Agent
+2
+Ensures stability of response actions
+Check_Asset_Exclusion_Lists
+Operation
+Blast_Radius_Guardrail_Validation
+3
+Cross-checks host names against exclusions
+Knowledge_Memory_Agent
+Agent
+None
+1
+Retains company infrastructure context
+Hierarchical_Memory_Management
+Skill
+Knowledge_Memory_Agent
+2
+Saves contexts into local vector engines
+Cache_Active_Session_State_Variables
+Operation
+Hierarchical_Memory_Management
+3
+Holds raw data in transient session tables
+Proactive_Threat_Hunting_Agent
+Agent
+None
+1
+Uncovers hidden deep-state anomalies
+Baseline_Anomaly_Detection
+Skill
+Proactive_Threat_Hunting_Agent
+2
+Identifies behavioral anomalies
+Calculate_Statistical_Deviations
+Operation
+Baseline_Anomaly_Detection
+3
+Computes variance offsets for behavior
+The reach of this architecture extends beyond the digital network, integrating physical and IoT domains into a unified security posture.
+3. Cyber-Physical Convergence: Physical SOC and IoT Agents
+A comprehensive security strategy requires a unified Cyber-Physical Security Operations Center (PSOC). By treating physical sensors—such as badge readers, motion detectors, and IoT hardware—as security endpoints, we can detect threats that cross the physical-digital divide, such as unauthorized facility access followed immediately by a sensitive network login.
+Specialized Physical and IoT Roles
+Physical Threat Intelligence Agent: Correlates physical environmental telemetry with digital signals. It evaluates geospatial consistency by comparing the timestamp and location of physical badge swipes with VPN or system login events to identify compromised credentials or "impossible travel."
+Physical Incident Response Agent: Manages automated physical countermeasures, such as locking doors or triggering silent alarms. It includes "Physical Guardrail" validation, which ensures automated lockdowns never violate fire code egress compliance or life-safety protocols.
+Device Lifecycle Agent: Manages "Edge Asset Contextualization" for IoT hardware. It establishes behavioral baselines for fixed-function devices (e.g., cameras only communicating with an NVR) and assigns "Trustworthiness" scores based on firmware versions and MAC address registry data.
+Physical and IoT Agent Registry
+Node_ID
+Skill/Operation
+Strategic Impact
+Physical_Threat_Intel_Agent
+Physical_Digital_Correlation
+Correlates badge logs with digital login events
+Verify_Geospatial_Consistency
+Operation
+Detects impossible travel between physical and digital sites
+Physical_Incident_Response_Agent
+Physical_Guardrail_Validation
+Ensures physical lockdowns comply with safety/fire codes
+Check_Fire_Code_Egress_Compliance
+Operation
+Prevents life-safety risks during automated physical response
+Device_Lifecycle_Agent
+Edge_Asset_Contextualization
+Maps hardware trust and physical location context
+Assign_Device_Trust_Score
+Operation
+Quantifies IoT device reliability for investigation context
+Upon detection of a physical anomaly, physical anomaly telemetry is vectorized and upserted into the hierarchical memory store, allowing the system to learn from cross-domain patterns.
+4. System Governance: Integrity, Oversight, and Validation Agents
+To prevent "model drift" and maintain the structural integrity of the autonomous system, an oversight layer is required. This layer ensures that the underlying DAG remains stable and that the intelligence used by the system is based on verified data.
+Oversight Agents
+Data Integrity & Verification Agent: Responsible for auditing "ground truth." It validates the accuracy of ingested logs and filters out low-confidence analyst overrides, protecting the training signal from corruption or bad-actor feedback injection.
+Graph Integration & Monitoring Agent: Acts as the architectural "Gatekeeper." It validates every new node or edge definition added to the system, simulating its impact to ensure the production environment remains a valid DAG.
+Graph Monitoring Operations
+The Graph Integration & Monitoring Agent utilizes Python-based logic to perform the following:
+Simulate_DAG_Path_Integrity: Utilizes networkx to run the function nx.is_directed_acyclic_graph(G) on proposed updates in a staging environment to detect potential circular logic.
+Reject_Cyclic_Dependencies: Automatically blocks any integration attempt that fails the DAG verification and issues high-priority alerts to the engineering team.
+Audit_Integration_History: Maintains a persistent Python-based log (JSON or structured text) of all successful and failed file integrations for compliance and forensic debugging.
+This governance layer ensures that all master data structures are verified before being merged into the production registry.
+5. Master Node and Edge Registry: The Unified CSV Manifest
+The following CSV manifests represent the version-controlled "Source of Truth" for the entire architecture, designed for atomic integration into the system's graph constructor.
+Master Node Manifest
+Node_ID,Node_Type,Parent_Node_ID,Depth_Level,Description
+Triage_Enrichment_Agent,Agent,None,1,Orchestrates log normalization and intelligence stitching
+Semantic_Log_Normalization,Skill,Triage_Enrichment_Agent,2,Normalizes raw logs to OCSF schema
+Ingest_Raw_Log_Stream,Operation,Semantic_Log_Normalization,3,Ingests raw telemetry streams
+Identify_Log_Source_Type,Operation,Semantic_Log_Normalization,3,Fingerprints log source types
+Map_Fields_To_OCSF_Schema,Operation,Semantic_Log_Normalization,3,Maps fields to standardized OCSF format
+Validate_Schema_Compliance,Operation,Semantic_Log_Normalization,3,Validates structural integrity of normalized logs
+Dynamic_Intelligence_Stitching,Skill,Triage_Enrichment_Agent,2,Enriches logs with real-time threat intelligence
+Extract_IOCs_IP_Hash_Domain,Operation,Dynamic_Intelligence_Stitching,3,Parses IOCs from metadata
+Query_Threat_Intel_APIs,Operation,Dynamic_Intelligence_Stitching,3,Retrieves reputation from external APIs
+Aggregate_Reputation_Scores,Operation,Dynamic_Intelligence_Stitching,3,Consolidates scores into alert context
+Append_Context_To_Alert_Metadata,Operation,Dynamic_Intelligence_Stitching,3,Appends final threat score to telemetry context
+Autonomous_Investigator_Agent,Agent,None,1,Main orchestrator for deep dynamic alert investigation
+Hypothesis_Generation_Planning,Skill,Autonomous_Investigator_Agent,2,Formulates logical next-steps using Chain of Thought
+Parse_Initial_Alert_Intent,Operation,Hypothesis_Generation_Planning,3,Extracts core suspicious indicators
+Select_Investigation_Playbook_Template,Operation,Hypothesis_Generation_Planning,3,Loads historical investigative templates
+Generate_Chain_of_Thought_Sequence,Operation,Hypothesis_Generation_Planning,3,Outputs logic sequence for analysis
+Prioritize_Evidence_Collection_Tasks,Operation,Hypothesis_Generation_Planning,3,Schedules data-gathering priorities
+Cross_Telemetry_Pivoting,Skill,Autonomous_Investigator_Agent,2,Queries distributed system segments
+Compile_Targeted_KQL_SPL_Queries,Operation,Cross_Telemetry_Pivoting,3,Constructs KQL/SPL strings
+Execute_Queries_Across_SIEM_EDR_Cloud,Operation,Cross_Telemetry_Pivoting,3,Dispatches API requests
+Normalize_Multi_Source_Timelines,Operation,Cross_Telemetry_Pivoting,3,Orders disparate records sequentially
+Filter_Out_Known_Administrative_Noise,Operation,Cross_Telemetry_Pivoting,3,Discards recognized admin patterns
+Remediation_Response_Agent,Agent,None,1,Executes real-time mitigation across network nodes
+Dynamic_Playbook_Synthesis,Skill,Remediation_Response_Agent,2,Composes conditional code steps
+Analyze_Investigator_Findings,Operation,Dynamic_Playbook_Synthesis,3,Parses generated root cause maps
+Map_Mitigation_Goals_To_Capabilities,Operation,Dynamic_Playbook_Synthesis,3,Checks tool extensions for tasks
+Assemble_API_Execution_Sequence,Operation,Dynamic_Playbook_Synthesis,3,Orders execution tasks by dependencies
+Compile_Python_SOAR_Script_Block,Operation,Dynamic_Playbook_Synthesis,3,Generates verified config script blocks
+Blast_Radius_Guardrail_Validation,Skill,Remediation_Response_Agent,2,Ensures steps adhere to stability bounds
+Check_Asset_Exclusion_Lists,Operation,Blast_Radius_Guardrail_Validation,3,Cross-checks against exclusions
+Verify_Impact_On_Production_Services,Operation,Blast_Radius_Guardrail_Validation,3,Evaluates customer-facing impact
+API_Driven_Infrastructure_Containment,Skill,Remediation_Response_Agent,2,Issues active commands to toolsets
+Issue_EDR_Isolate_Host_Command,Operation,API_Driven_Infrastructure_Containment,3,Instructs clients to apply blocks
+Knowledge_Memory_Agent,Agent,None,1,Retains company infrastructure context
+Hierarchical_Memory_Management,Skill,Knowledge_Memory_Agent,2,Saves context into vector engines
+Cache_Active_Session_State_Variables,Operation,Hierarchical_Memory_Management,3,Holds raw data in transient tables
+Summarize_Closed_Incident_Context,Operation,Hierarchical_Memory_Management,3,Creates text summaries from events
+Commit_Key_Learnings_To_Long_Term_Store,Operation,Hierarchical_Memory_Management,3,Pushes summaries to continuous logs
+Prune_Stale_Ephemere_Context,Operation,Hierarchical_Memory_Management,3,Clears transient debug text
+Proactive_Threat_Hunting_Agent,Agent,None,1,Uncovers hidden deep-state anomalies
+Baseline_Anomaly_Detection,Skill,Proactive_Threat_Hunting_Agent,2,Finds subtle behavioral anomalies
+Ingest_Historical_Behavior_Profiles,Operation,Baseline_Anomaly_Detection,3,Pulls historical usage metrics
+Calculate_Statistical_Deviations,Operation,Baseline_Anomaly_Detection,3,Computes variance offsets
+Physical_Threat_Intel_Agent,Agent,None,1,Manages physical/environmental security signals
+Site_Wide_Anomaly_Detection,Skill,Physical_Threat_Intel_Agent,2,Baselines physical site patterns
+Ingest_Badge_Swipe_Logs,Operation,Site_Wide_Anomaly_Detection,3,Normalizes badge access telemetry
+Physical_Incident_Response_Agent,Agent,None,1,Executes physical mitigation playbooks
+Dynamic_Physical_Mitigation,Skill,Physical_Incident_Response_Agent,2,Orchestrates site-level countermeasures
+Command_Automated_Door_Locking,Operation,Dynamic_Physical_Mitigation,3,Triggers digital lockdowns of doors
+Device_Lifecycle_Agent,Agent,None,1,Maintains trust scores for IoT assets
+Edge_Asset_Contextualization,Skill,Device_Lifecycle_Agent,2,Maps hardware to physical locations
+Assign_Device_Trust_Score,Operation,Edge_Asset_Contextualization,3,Calculates IoT reliability indices
+Data_Integrity_Verification_Agent,Agent,None,1,Validates system-wide data integrity
+Telemetry_Accuracy_Validation,Skill,Data_Integrity_Verification_Agent,2,Verifies integrity of ingested logs
+Validate_Schema_Consistency,Operation,Telemetry_Accuracy_Validation,3,Checks logs against OCSF standards
+Graph_Integration_Monitoring_Agent,Agent,None,1,Oversees architectural integrity
+Integrity_Validation_Skill,Skill,Graph_Integration_Monitoring_Agent,2,Validates graph topology
+Simulate_DAG_Path_Integrity,Operation,Integrity_Validation_Skill,3,Runs cycle detection via networkx
+Reject_Cyclic_Dependencies,Operation,Integrity_Validation_Skill,3,Blocks invalid integration paths
+Audit_Integration_History,Operation,Integrity_Validation_Skill,3,Logs file integration events
+Master Edge Registry
+Source_ID,Target_ID,Edge_Type,Description
+Triage_Enrichment_Agent,Semantic_Log_Normalization,Structural,Agent-to-skill hierarchy
+Semantic_Log_Normalization,Ingest_Raw_Log_Stream,Structural,Skill-to-operation hierarchy
+Ingest_Raw_Log_Stream,Identify_Log_Source_Type,Data_Flow,Passes stream for fingerprinting
+Identify_Log_Source_Type,Map_Fields_To_OCSF_Schema,Data_Flow,Provides source type to transformer
+Map_Fields_To_OCSF_Schema,Validate_Schema_Compliance,Data_Flow,Sends normalized log for validation
+Validate_Schema_Compliance,Extract_IOCs_IP_Hash_Domain,Data_Flow,Triggers enrichment on valid logs
+Autonomous_Investigator_Agent,Hypothesis_Generation_Planning,Structural,Agent-to-skill hierarchy
+Update_Incident_Severity_Weight,Parse_Initial_Alert_Intent,Data_Flow,Triage handoff to Investigator
+Parse_Initial_Alert_Intent,Select_Investigation_Playbook_Template,Data_Flow,Picks matching playbook
+Remediation_Response_Agent,Dynamic_Playbook_Synthesis,Structural,Agent-to-skill hierarchy
+Pinpoint_Patient_Zero_Root_Cause,Analyze_Investigator_Findings,Data_Flow,Investigator handoff to Remediation
+Analyze_Investigator_Findings,Map_Mitigation_Goals_To_Capabilities,Data_Flow,Pairs issues to tool APIs
+Knowledge_Memory_Agent,Hierarchical_Memory_Management,Structural,Agent-to-skill hierarchy
+Emit_Containment_Success_Telemetry,Cache_Active_Session_State_Variables,Data_Flow,Remediation handoff to Memory
+Proactive_Threat_Hunting_Agent,Baseline_Anomaly_Detection,Structural,Agent-to-skill hierarchy
+Execute_Passive_Log_Review,Ingest_Network_Topology_Graph,Data_Flow,Hunting feeds into topology maps
+Physical_Threat_Intel_Agent,Site_Wide_Anomaly_Detection,Structural,Agent-to-skill hierarchy
+Physical_Threat_Intel_Agent,Physical_Incident_Response_Agent,Data_Flow,Physical threat triggers response
+Physical_Incident_Response_Agent,Device_Lifecycle_Agent,Data_Flow,Response updates asset trust status
+Physical_Incident_Response_Agent,Knowledge_Memory_Agent,Data_Flow,Physical learning loop handoff
+Data_Integrity_Verification_Agent,Telemetry_Accuracy_Validation,Structural,Agent-to-skill hierarchy
+Data_Integrity_Verification_Agent,Triage_Enrichment_Agent,Control_Edge,Provides real-time validation flags
+Graph_Integration_Monitoring_Agent,Integrity_Validation_Skill,Structural,Agent-to-skill hierarchy
+Integrity_Validation_Skill,Autonomous_Investigator_Agent,Data_Flow,Feedback if investigator logic fails
+Onboarding Lifecycle Workflow
+To maintain this registry, the system utilizes a 4-step onboarding lifecycle:
+Draft in Staging: New agent, skill, or operation CSV rows are placed in an /onboarding directory.
+Conflict Simulation: The system creates a temporary graph copy using main_graph.copy().
+DAG Verification: The Graph Monitoring Agent runs nx.is_directed_acyclic_graph(G) to confirm no circular logic is introduced.
+Atomic Merge: Upon successful validation, the new rows are merged into the master manifests, and the production graph is updated.
+This integrated manifest ensures a self-healing and self-optimizing posture, allowing the security architecture to evolve as a stable Graph-as-Code entity.
