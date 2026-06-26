@@ -1,0 +1,108 @@
+Building the Python components for the Proactive Threat Hunting Agent involves implementing the logic for its four core skills: Baseline Anomaly Detection, Hypothesis-Driven Crawling, Adversarial Emulation Modeling, and Long-Tail Analysis
+. This agent shifts the SIEM from a reactive to an anticipatory posture by identifying hidden deep-state anomalies before they escalate into high-fidelity alerts
+.
+Following the established "Graph-as-Code" architecture, these components are designed as modular operations within the Directed Acyclic Graph (DAG)
+.
+1. Skill: Baseline Anomaly Detection
+This skill focuses on identifying subtle behavioral shifts by comparing current telemetry against historical usage metrics
+.
+import pandas as pd
+import numpy as np
+
+class BaselineAnomalyDetection:
+    def ingest_historical_profiles(self, user_id):
+        """Operation: Ingest_Historical_Behavior_Profiles - Pulls historical metrics."""
+        # Pulls baseline metrics such as average login times and file egress volumes [5]
+        return {"avg_login_hour": 9, "avg_egress_mb": 50}
+
+    def calculate_statistical_deviations(self, current_metrics, baseline):
+        """Operation: Calculate_Statistical_Deviations - Computes variance offsets."""
+        # Calculates offsets for timing and data quantities [5, 9]
+        deviation = abs(current_metrics['login_hour'] - baseline['avg_login_hour'])
+        return deviation
+
+    def flag_unusual_auth_times(self, deviation):
+        """Operation: Flag_Unusual_Authentication_Times - Marks off-hour sessions."""
+        # Marks interactive sessions originating outside standard business hours [9, 10]
+        return deviation > 4  # Example threshold
+
+    def isolate_outlier_egress_volumes(self, current_egress, baseline_egress):
+        """Operation: Isolate_Outlier_Data_Exfiltration_Volumes - Flags heavy spikes."""
+        # Identifies larger-than-normal internal egress paths [9, 10]
+        if current_egress > (baseline_egress * 5):
+            return "OUTLIER_DETECTED"
+        return "NORMAL"
+2. Skill: Hypothesis-Driven Crawling
+This skill uses emerging external threat data to proactively locate hidden risks within the existing fleet
+.
+class HypothesisDrivenCrawling:
+    def ingest_zero_day_reports(self, feed_url):
+        """Operation: Ingest_Emerging_Zero_Day_Reports - Parses dynamic text feeds."""
+        # Pulls fresh zero-day exploits from global security feeds [10, 11]
+        return "Exploit: CVE-2026-X utilizes specific registry key HKLM\\Software\\Malware"
+
+    def extract_new_exploit_patterns(self, raw_report):
+        """Operation: Extract_New_Exploit_Patterns - Distills indicators."""
+        # Distills novel indicators or commands from advisory lists [11, 12]
+        return {"registry_key": "HKLM\\Software\\Malware"}
+
+    def generate_fleet_wide_scan_queries(self, pattern):
+        """Operation: Generate_Fleet_Wide_Scan_Queries - Builds exploratory templates."""
+        # Builds precise hunting queries for indicators across the network [11, 12]
+        return f"DeviceRegistryEvents | where RegistryKey == '{pattern['registry_key']}'"
+
+    def execute_passive_log_review(self, query):
+        """Operation: Execute_Passive_Log_Review - Runs backward search sweeps."""
+        # Runs retro sweeps across historical storage repositories [11, 12]
+        return ["Historical Match Found: Host-A, 2026-06-20"]
+3. Skill: Adversarial Emulation Modeling
+This skill maps the network topology and simulates attacker movements to identify blindspots in detection coverage
+.
+class AdversarialEmulationModeling:
+    def ingest_network_topology(self):
+        """Operation: Ingest_Network_Topology_Graph - Maps host-to-host routes."""
+        # Maps system routes from internal routing and topology tables [12, 14]
+        return {"Host-A": ["Host-B", "Host-C"], "Host-B": ["Server-Finance"]}
+
+    def simulate_lateral_movement_paths(self, topology):
+        """Operation: Simulate_Lateral_Movement_Paths - Calculates pivot risk."""
+        # Simulates hypothetical lateral threat paths and weights pivot risks [13, 14]
+        return [("Host-A", "Server-Finance")]
+
+    def identify_missing_choke_points(self, simulated_paths):
+        """Operation: Identify_Missing_Detection_Choke_Points - Reports log gaps."""
+        # Highlights areas where telemetry or log aggregation is missing [13, 14]
+        return "Warning: No EDR logs for Host-B; Lateral path invisible"
+
+    def generate_synthetic_telemetry(self, target_path):
+        """Operation: Generate_Synthetic_Attacker_Telemetry - Safe emulation tests."""
+        # Enhancement: Coordinates with infrastructure to run safe red-team tests [13-15]
+        return "Synthetic Alert: Lateral movement emulated on Host-A to Host-B"
+4. Skill: Long-Tail Analysis
+This skill screens obscure, low-frequency telemetry for stealthy beaconing or command-and-control (C2) activity
+.
+class LongTailAnalysis:
+    def aggregate_low_frequency_logs(self, connection_logs):
+        """Operation: Aggregate_Low_Frequency_Connection_Logs - Gathers unique connections."""
+        # Tracks unique connections appearing only once per timeframe [16, 17]
+        return [log for log in connection_logs if log['frequency'] == 1]
+
+    def calculate_beaconing_periodicities(self, low_freq_logs):
+        """Operation: Calculate_Beaconing_Interval_Periodicities - Math timing equations."""
+        # Enhancement: Monitors for entropy shifts and timed traffic signals [15-17]
+        # Logic to find periodic connections to obscure external IPs
+        return {"8.8.8.8": "Regular 60s interval"}
+
+    def filter_benign_keep_alives(self, periodic_traffic):
+        """Operation: Filter_Out_Legitimate_Cloud_Keep_Alives - Removes noise."""
+        # Removes common vendor updates and cloud background noise [16, 17]
+        return [traffic for traffic in periodic_traffic if "Microsoft" not in traffic]
+
+    def escalate_stealth_c2(self, potential_c2):
+        """Operation: Escalate_Persistent_Low_Signal_C2 - Flags to investigator."""
+        # Escalates stealth persistence loops to the Autonomous Investigator Agent [16, 17]
+        return f"ALERT: Suspected C2 Beacon to {potential_c2}"
+Strategic Implementation
+These components are integrated into the SIEM through a Validation-First integration workflow
+. Before being added to the production graph, these operations must be processed by the Graph Integration & Monitoring Agent to ensure that new paths—such as the Long-Tail Analysis feeding data back into the Investigator Agent—do not create cyclic dependencies in the Directed Acyclic Graph (DAG)
+.
