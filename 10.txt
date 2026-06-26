@@ -1,0 +1,243 @@
+Technical SIEM Manifest: Agentic Node and Edge Master Registry
+1. Document Overview and Architectural Standards
+This registry defines the authoritative Directed Acyclic Graph (DAG) for the Agentic SIEM, establishing a high-fidelity blueprint for cyber-physical security orchestration. The architecture is predicated on the modular integration of specialized agents, skills, and operations, ensuring a telemetry-to-remediation pipeline that is both explainable and resilient against cyclic logic errors.
+1.1 Architectural Standards
+All system definitions must adhere to the following schema for ingestion by the graph_constructor.py utility.
+Node Schema: Node_ID, Node_Type, Parent_Node_ID, Depth_Level, Description
+Edge Schema: Source_ID, Target_ID, Edge_Type, Description
+1.2 Integration Constraints
+Absolute Grounding: All Level 3 Operations must map to a Level 2 Skill and Level 1 Agent.
+Atomic Integration: Updates are performed in "Simulation Mode" using a main_graph.copy() operation to prevent production outages.
+DAG Validation: The networkx library enforces the is_directed_acyclic_graph property.
+Referential Integrity: The Graph Constructor validates that every Parent_Node_ID exists within the Node_ID namespace.
+2. Section I: Master Node Manifest
+The following CSV block contains the complete registry of Agents (Depth 1), Skills (Depth 2), and Operations (Depth 3) across digital, physical, oversight, and flight domains.
+Node_ID,Node_Type,Parent_Node_ID,Depth_Level,Description
+Triage_Enrichment_Agent,Agent,None,1,Orchestrates log normalization and intelligence stitching
+Semantic_Log_Normalization,Skill,Triage_Enrichment_Agent,2,Handles field mapping and OCSF schema compliance
+Ingest_Raw_Log_Stream,Operation,Semantic_Log_Normalization,3,Ingests raw telemetry for signature fingerprinting
+Identify_Log_Source_Type,Operation,Semantic_Log_Normalization,3,Determines parser requirements based on log format
+Map_Fields_To_OCSF_Schema,Operation,Semantic_Log_Normalization,3,Normalizes disparate logs to standard OCSF format
+Validate_Schema_Compliance,Operation,Semantic_Log_Normalization,3,Ensures normalized data meets system integrity checks
+Dynamic_Intelligence_Stitching,Skill,Triage_Enrichment_Agent,2,Enriches alerts with real-time reputation data
+Extract_IOCs_IP_Hash_Domain,Operation,Dynamic_Intelligence_Stitching,3,Parses indicators for external lookup
+Query_Threat_Intel_APIs,Operation,Dynamic_Intelligence_Stitching,3,Dispatches API requests to global threat feeds
+Aggregate_Reputation_Scores,Operation,Dynamic_Intelligence_Stitching,3,Synthesizes multi-source scores into alert weights
+Graph_Based_Asset_Clustering,Skill,Triage_Enrichment_Agent,2,Predictive asset contextualization via network adjacency
+Query_Identity_Provider_Logs,Operation,Graph_Based_Asset_Clustering,3,Correlates user IDs with asset ownership logs
+Fetch_CMDB_Asset_Criticality,Operation,Graph_Based_Asset_Clustering,3,Determines blast radius based on asset tier
+Map_Network_Adjacency,Operation,Graph_Based_Asset_Clustering,3,Identifies lateral movement targets in network topology
+Heuristic_De_duplication,Skill,Triage_Enrichment_Agent,2,Merges related events into atomic high-fidelity incidents
+Check_Active_Alert_Time_Windows,Operation,Heuristic_De_duplication,3,Analyzes temporal closeness of similar alerts
+Merge_Related_Events_Into_Incident,Operation,Heuristic_De_duplication,3,Clusters telemetry into a single case narrative
+Autonomous_Investigator_Agent,Agent,None,1,Orchestrator for deep dynamic cross-telemetry investigation
+Hypothesis_Generation_Planning,Skill,Autonomous_Investigator_Agent,2,Formulates next-steps using Chain of Thought
+Parse_Initial_Alert_Intent,Operation,Hypothesis_Generation_Planning,3,Identifies the core threat vector from triage
+Generate_Chain_of_Thought_Sequence,Operation,Hypothesis_Generation_Planning,3,Builds the logical steps for forensic exploration
+Cross_Telemetry_Pivoting,Skill,Autonomous_Investigator_Agent,2,Executes parallel hypothesis testing across domains
+Compile_Targeted_KQL_SPL_Queries,Operation,Cross_Telemetry_Pivoting,3,Builds scoped queries for distributed telemetry
+Execute_Queries_Across_SIEM_EDR_Cloud,Operation,Cross_Telemetry_Pivoting,3,Simultaneously polls endpoints and cloud storage
+MITRE_ATTACK_Mapping,Skill,Autonomous_Investigator_Agent,2,Correlates behaviors to known adversary techniques
+Extract_Command_Line_Arguments,Operation,MITRE_ATTACK_Mapping,3,Pulls process parameters for behavioral analysis
+Match_Patterns_To_ATTACK_Techniques,Operation,MITRE_ATTACK_Mapping,3,Appends technique IDs to the investigation state
+Artifact_Reconstruction,Skill,Autonomous_Investigator_Agent,2,Automated forensic snapshotting and lineage tracing
+Trace_Parent_Child_Process_Trees,Operation,Artifact_Reconstruction,3,Reconstructs execution history from binaries
+Identify_Persistence_Mechanisms,Operation,Artifact_Reconstruction,3,Scans registry and cron for stealth modifications
+Pinpoint_Patient_Zero_Root_Cause,Operation,Artifact_Reconstruction,3,Isolates the initial infection or entry event
+Remediation_Response_Agent,Agent,None,1,Executes real-time mitigation and containment commands
+Dynamic_Playbook_Synthesis,Skill,Remediation_Response_Agent,2,Just-In-Time synthesis of response code
+Map_Mitigation_Goals_To_Capabilities,Operation,Dynamic_Playbook_Synthesis,3,Pairs root cause to available API toolsets
+Compile_Python_SOAR_Script_Block,Operation,Dynamic_Playbook_Synthesis,3,Generates executable remediation logic
+Blast_Radius_Guardrail_Validation,Skill,Remediation_Response_Agent,2,Pre-flight simulation of containment impact
+Check_Asset_Exclusion_Lists,Operation,Blast_Radius_Guardrail_Validation,3,Protects critical whitelist assets from isolation
+Verify_Impact_On_Production_Services,Operation,Blast_Radius_Guardrail_Validation,3,Simulates network path breakage before commit
+API_Driven_Infrastructure_Containment,Skill,Remediation_Response_Agent,2,Executes authorized lockdown commands
+Issue_EDR_Isolate_Host_Command,Operation,API_Driven_Infrastructure_Containment,3,Quarantines infected hosts at the agent layer
+Push_Firewall_Block_Rules,Operation,API_Driven_Infrastructure_Containment,3,Updates ACLs to stop external C2 communication
+Post_Action_Verification,Skill,Remediation_Response_Agent,2,Confirms threat neutralization and site stability
+Verify_Process_Termination_Status,Operation,Post_Action_Verification,3,Checks host to ensure malicious PIDs are dead
+Emit_Containment_Success_Telemetry,Operation,Post_Action_Verification,3,Sends metrics to the Knowledge Memory Agent
+Knowledge_Memory_Agent,Agent,None,1,Maintains system context and federated learning models
+Hierarchical_Memory_Management,Skill,Knowledge_Memory_Agent,2,Manages vector embeddings for historical incidents
+Summarize_Closed_Incident_Context,Operation,Hierarchical_Memory_Management,3,Condenses cases into high-density threat patterns
+Commit_Key_Learnings_To_Long_Term_Store,Operation,Hierarchical_Memory_Management,3,Updates vector DB with new remediation outcomes
+RAG_Document_Engineering,Skill,Knowledge_Memory_Agent,2,Converts architecture wikis into system context
+Ingest_Internal_Architecture_Wiki_Pages,Operation,RAG_Document_Engineering,3,Pulls infrastructure maps for investigative RAG
+Upsert_Vectors_To_Knowledge_DB,Operation,RAG_Document_Engineering,3,Updates the semantic index for system documentation
+Feedback_Loop_Integration,Skill,Knowledge_Memory_Agent,2,Tunes agent prompt weights via analyst overrides
+Calculate_Embedding_Distance_Adjustments,Operation,Feedback_Loop_Integration,3,Modifies vector similarity thresholds
+Explainable_AI_Synthesis,Skill,Knowledge_Memory_Agent,2,Outputs visual traces and diagrams of AI logic
+Generate_Human_Readable_Case_Narrative,Operation,Explainable_AI_Synthesis,3,Translates graphs into natural language reports
+Export_Executive_Summary_Reports,Operation,Explainable_AI_Synthesis,3,Produces compliance-ready audit documentation
+Proactive_Threat_Hunting_Agent,Agent,None,1,Uncovers hidden anomalies through adversarial emulation
+Baseline_Anomaly_Detection,Skill,Proactive_Threat_Hunting_Agent,2,Identifies subtle user and account deviations
+Flag_Unusual_Authentication_Times,Operation,Baseline_Anomaly_Detection,3,Marks interactive logins outside standard windows
+Isolate_Outlier_Data_Exfiltration_Volumes,Operation,Baseline_Anomaly_Detection,3,Detects heavy egress patterns in quiet zones
+Hypothesis_Driven_Crawling,Skill,Proactive_Threat_Hunting_Agent,2,Backward search sweeps based on zero-day feeds
+Extract_New_Exploit_Patterns,Operation,Hypothesis_Driven_Crawling,3,Distills indicators from emerging vulnerability reports
+Adversarial_Emulation_Modeling,Skill,Proactive_Threat_Hunting_Agent,2,Simulates attacker paths through network topology
+Simulate_Lateral_Movement_Paths,Operation,Adversarial_Emulation_Modeling,3,Calculates pivot risk weights for infrastructure
+Generate_Synthetic_Attacker_Telemetry,Operation,Adversarial_Emulation_Modeling,3,Triggers controlled tests to validate detections
+Long_Tail_Entropy_Analysis,Skill,Proactive_Threat_Hunting_Agent,2,Monitors randomness shifts in network streams
+Calculate_Beaconing_Interval_Periodicities,Operation,Long_Tail_Entropy_Analysis,3,Runs math equations to find stealth C2 traffic
+Physical_Threat_Intelligence_Agent,Agent,None,1,Manages physical and environmental security signals
+Site_Wide_Anomaly_Detection,Skill,Physical_Threat_Intelligence_Agent,2,Baselines site-specific movement and access
+Ingest_Badge_Swipe_Logs,Operation,Site_Wide_Anomaly_Detection,3,Normalizes RFID and biometric access records
+Physical_Digital_Correlation,Skill,Physical_Threat_Intelligence_Agent,2,Correlates badge events with digital logins
+Verify_Geospatial_Consistency,Operation,Physical_Digital_Correlation,3,Checks for impossible travel (physical vs digital)
+Trigger_Unified_Security_Alert,Operation,Physical_Digital_Correlation,3,Escalates cyber-physical anomalies to investigation
+Physical_Incident_Response_Agent,Agent,None,1,Executes physical mitigation and safety playbooks
+Dynamic_Physical_Mitigation,Skill,Physical_Incident_Response_Agent,2,Orchestrates site-level countermeasures
+Command_Automated_Door_Locking,Operation,Dynamic_Physical_Mitigation,3,Issues API commands to electronic door strikes
+Physical_Guardrail_Validation,Skill,Physical_Incident_Response_Agent,2,Validates fire code and life safety egress
+Check_Fire_Code_Egress_Compliance,Operation,Physical_Guardrail_Validation,3,Ensures lockdowns do not block emergency exit paths
+Device_Lifecycle_Agent,Agent,None,1,Maintains trust scores for physical and IoT assets
+Edge_Asset_Contextualization,Skill,Device_Lifecycle_Agent,2,Maps hardware profiles to physical locations
+Assign_Device_Trust_Score,Operation,Edge_Asset_Contextualization,3,Calculates reliability indices based on firmware/MAC
+Behavioral_Baseline_for_IoT,Skill,Device_Lifecycle_Agent,2,Monitors fixed communication paths for IoT gear
+Flag_Unauthorized_Device_Traffic,Operation,Behavioral_Baseline_for_IoT,3,Identifies anomalous outbound IoT connections
+Data_Integrity_Verification_Agent,Agent,None,1,Validates system-wide data and incident conditions
+Telemetry_Accuracy_Validation,Skill,Data_Integrity_Verification_Agent,2,Verifies integrity and schema of ingested logs
+Validate_Schema_Consistency,Operation,Telemetry_Accuracy_Validation,3,Checks logs against OCSF standards in real-time
+Recorded_Condition_Audit,Skill,Data_Integrity_Verification_Agent,2,Audits historical context for model drift prevention
+Flag_Stale_Knowledge_Nodes,Operation,Recorded_Condition_Audit,3,Identifies outdated documentation in the RAG store
+Training_Signal_Quality_Assurance,Skill,Data_Integrity_Verification_Agent,2,Ensures high-fidelity feedback loops
+Filter_Low_Confidence_Analyst_Overrides,Operation,Training_Signal_Quality_Assurance,3,Discards ambiguous human feedback from training
+Graph_Integration_Monitoring_Agent,Agent,None,1,Oversees architectural integrity of the SIEM graph
+Integrity_Validation_Skill,Skill,Graph_Integration_Monitoring_Agent,2,Checks new data against existing graph topology
+Simulate_DAG_Path_Integrity,Operation,Integrity_Validation_Skill,3,Runs cycle detection on proposed node/edge updates
+Onboarding_Lifecycle_Monitor,Skill,Graph_Integration_Monitoring_Agent,2,Logs file ingestion history for audit
+Audit_Integration_History,Operation,Onboarding_Lifecycle_Monitor,3,Maintains persistent log of DAG state changes
+Municipal_Police_Flight_Agent,Agent,None,1,Monitors geospatial and flight-related physical sensor logic
+Airspace_Anomaly_Detection,Skill,Municipal_Police_Flight_Agent,2,Monitors municipal flight paths and permits
+Map_Flight_Path_Anomalies,Operation,Airspace_Anomaly_Detection,3,Identifies deviations from registered flight plans
+Geospatial_Sensor_Alignment,Skill,Municipal_Police_Flight_Agent,2,Verifies ground-to-air sensor consistency
+Cross_Reference_Airspace_Permits,Operation,Geospatial_Sensor_Alignment,3,Validates telemetry against active flight authorizations
+3. Section II: Master Edge Manifest
+The edge manifest establishes the structural, data-flow, and oversight connections required for autonomous operations.
+Source_ID,Target_ID,Edge_Type,Description
+Triage_Enrichment_Agent,Semantic_Log_Normalization,Structural,Agent-to-skill hierarchy
+Semantic_Log_Normalization,Ingest_Raw_Log_Stream,Structural,Skill-to-operation hierarchy
+Semantic_Log_Normalization,Identify_Log_Source_Type,Structural,Skill-to-operation hierarchy
+Semantic_Log_Normalization,Map_Fields_To_OCSF_Schema,Structural,Skill-to-operation hierarchy
+Semantic_Log_Normalization,Validate_Schema_Compliance,Structural,Skill-to-operation hierarchy
+Triage_Enrichment_Agent,Dynamic_Intelligence_Stitching,Structural,Agent-to-skill hierarchy
+Dynamic_Intelligence_Stitching,Extract_IOCs_IP_Hash_Domain,Structural,Skill-to-operation hierarchy
+Dynamic_Intelligence_Stitching,Query_Threat_Intel_APIs,Structural,Skill-to-operation hierarchy
+Dynamic_Intelligence_Stitching,Aggregate_Reputation_Scores,Structural,Skill-to-operation hierarchy
+Triage_Enrichment_Agent,Graph_Based_Asset_Clustering,Structural,Agent-to-skill hierarchy
+Graph_Based_Asset_Clustering,Query_Identity_Provider_Logs,Structural,Skill-to-operation hierarchy
+Graph_Based_Asset_Clustering,Fetch_CMDB_Asset_Criticality,Structural,Skill-to-operation hierarchy
+Graph_Based_Asset_Clustering,Map_Network_Adjacency,Structural,Skill-to-operation hierarchy
+Triage_Enrichment_Agent,Heuristic_De_duplication,Structural,Agent-to-skill hierarchy
+Heuristic_De_duplication,Check_Active_Alert_Time_Windows,Structural,Skill-to-operation hierarchy
+Heuristic_De_duplication,Merge_Related_Events_Into_Incident,Structural,Skill-to-operation hierarchy
+Autonomous_Investigator_Agent,Hypothesis_Generation_Planning,Structural,Agent-to-skill hierarchy
+Hypothesis_Generation_Planning,Parse_Initial_Alert_Intent,Structural,Skill-to-operation hierarchy
+Hypothesis_Generation_Planning,Generate_Chain_of_Thought_Sequence,Structural,Skill-to-operation hierarchy
+Autonomous_Investigator_Agent,Cross_Telemetry_Pivoting,Structural,Agent-to-skill hierarchy
+Cross_Telemetry_Pivoting,Compile_Targeted_KQL_SPL_Queries,Structural,Skill-to-operation hierarchy
+Cross_Telemetry_Pivoting,Execute_Queries_Across_SIEM_EDR_Cloud,Structural,Skill-to-operation hierarchy
+Autonomous_Investigator_Agent,MITRE_ATTACK_Mapping,Structural,Agent-to-skill hierarchy
+MITRE_ATTACK_Mapping,Extract_Command_Line_Arguments,Structural,Skill-to-operation hierarchy
+MITRE_ATTACK_Mapping,Match_Patterns_To_ATTACK_Techniques,Structural,Skill-to-operation hierarchy
+Autonomous_Investigator_Agent,Artifact_Reconstruction,Structural,Agent-to-skill hierarchy
+Artifact_Reconstruction,Trace_Parent_Child_Process_Trees,Structural,Skill-to-operation hierarchy
+Artifact_Reconstruction,Identify_Persistence_Mechanisms,Structural,Skill-to-operation hierarchy
+Artifact_Reconstruction,Pinpoint_Patient_Zero_Root_Cause,Structural,Skill-to-operation hierarchy
+Remediation_Response_Agent,Dynamic_Playbook_Synthesis,Structural,Agent-to-skill hierarchy
+Dynamic_Playbook_Synthesis,Map_Mitigation_Goals_To_Capabilities,Structural,Skill-to-operation hierarchy
+Dynamic_Playbook_Synthesis,Compile_Python_SOAR_Script_Block,Structural,Skill-to-operation hierarchy
+Remediation_Response_Agent,Blast_Radius_Guardrail_Validation,Structural,Agent-to-skill hierarchy
+Blast_Radius_Guardrail_Validation,Check_Asset_Exclusion_Lists,Structural,Skill-to-operation hierarchy
+Blast_Radius_Guardrail_Validation,Verify_Impact_On_Production_Services,Structural,Skill-to-operation hierarchy
+Remediation_Response_Agent,API_Driven_Infrastructure_Containment,Structural,Agent-to-skill hierarchy
+API_Driven_Infrastructure_Containment,Issue_EDR_Isolate_Host_Command,Structural,Skill-to-operation hierarchy
+API_Driven_Infrastructure_Containment,Push_Firewall_Block_Rules,Structural,Skill-to-operation hierarchy
+Remediation_Response_Agent,Post_Action_Verification,Structural,Agent-to-skill hierarchy
+Post_Action_Verification,Verify_Process_Termination_Status,Structural,Skill-to-operation hierarchy
+Post_Action_Verification,Emit_Containment_Success_Telemetry,Structural,Skill-to-operation hierarchy
+Knowledge_Memory_Agent,Hierarchical_Memory_Management,Structural,Agent-to-skill hierarchy
+Hierarchical_Memory_Management,Summarize_Closed_Incident_Context,Structural,Skill-to-operation hierarchy
+Hierarchical_Memory_Management,Commit_Key_Learnings_To_Long_Term_Store,Structural,Skill-to-operation hierarchy
+Knowledge_Memory_Agent,RAG_Document_Engineering,Structural,Agent-to-skill hierarchy
+RAG_Document_Engineering,Ingest_Internal_Architecture_Wiki_Pages,Structural,Skill-to-operation hierarchy
+RAG_Document_Engineering,Upsert_Vectors_To_Knowledge_DB,Structural,Skill-to-operation hierarchy
+Knowledge_Memory_Agent,Feedback_Loop_Integration,Structural,Agent-to-skill hierarchy
+Feedback_Loop_Integration,Calculate_Embedding_Distance_Adjustments,Structural,Skill-to-operation hierarchy
+Knowledge_Memory_Agent,Explainable_AI_Synthesis,Structural,Agent-to-skill hierarchy
+Explainable_AI_Synthesis,Generate_Human_Readable_Case_Narrative,Structural,Skill-to-operation hierarchy
+Explainable_AI_Synthesis,Export_Executive_Summary_Reports,Structural,Skill-to-operation hierarchy
+Proactive_Threat_Hunting_Agent,Baseline_Anomaly_Detection,Structural,Agent-to-skill hierarchy
+Baseline_Anomaly_Detection,Flag_Unusual_Authentication_Times,Structural,Skill-to-operation hierarchy
+Baseline_Anomaly_Detection,Isolate_Outlier_Data_Exfiltration_Volumes,Structural,Skill-to-operation hierarchy
+Proactive_Threat_Hunting_Agent,Hypothesis_Driven_Crawling,Structural,Agent-to-skill hierarchy
+Hypothesis_Driven_Crawling,Extract_New_Exploit_Patterns,Structural,Skill-to-operation hierarchy
+Proactive_Threat_Hunting_Agent,Adversarial_Emulation_Modeling,Structural,Agent-to-skill hierarchy
+Adversarial_Emulation_Modeling,Simulate_Lateral_Movement_Paths,Structural,Skill-to-operation hierarchy
+Adversarial_Emulation_Modeling,Generate_Synthetic_Attacker_Telemetry,Structural,Skill-to-operation hierarchy
+Proactive_Threat_Hunting_Agent,Long_Tail_Entropy_Analysis,Structural,Agent-to-skill hierarchy
+Long_Tail_Entropy_Analysis,Calculate_Beaconing_Interval_Periodicities,Structural,Skill-to-operation hierarchy
+Physical_Threat_Intelligence_Agent,Site_Wide_Anomaly_Detection,Structural,Agent-to-skill hierarchy
+Site_Wide_Anomaly_Detection,Ingest_Badge_Swipe_Logs,Structural,Skill-to-operation hierarchy
+Physical_Threat_Intelligence_Agent,Physical_Digital_Correlation,Structural,Agent-to-skill hierarchy
+Physical_Digital_Correlation,Verify_Geospatial_Consistency,Structural,Skill-to-operation hierarchy
+Physical_Digital_Correlation,Trigger_Unified_Security_Alert,Structural,Skill-to-operation hierarchy
+Physical_Incident_Response_Agent,Dynamic_Physical_Mitigation,Structural,Agent-to-skill hierarchy
+Dynamic_Physical_Mitigation,Command_Automated_Door_Locking,Structural,Skill-to-operation hierarchy
+Physical_Incident_Response_Agent,Physical_Guardrail_Validation,Structural,Agent-to-skill hierarchy
+Physical_Guardrail_Validation,Check_Fire_Code_Egress_Compliance,Structural,Skill-to-operation hierarchy
+Device_Lifecycle_Agent,Edge_Asset_Contextualization,Structural,Agent-to-skill hierarchy
+Edge_Asset_Contextualization,Assign_Device_Trust_Score,Structural,Skill-to-operation hierarchy
+Device_Lifecycle_Agent,Behavioral_Baseline_for_IoT,Structural,Agent-to-skill hierarchy
+Behavioral_Baseline_for_IoT,Flag_Unauthorized_Device_Traffic,Structural,Skill-to-operation hierarchy
+Data_Integrity_Verification_Agent,Telemetry_Accuracy_Validation,Structural,Agent-to-skill hierarchy
+Telemetry_Accuracy_Validation,Validate_Schema_Consistency,Structural,Skill-to-operation hierarchy
+Data_Integrity_Verification_Agent,Recorded_Condition_Audit,Structural,Agent-to-skill hierarchy
+Recorded_Condition_Audit,Flag_Stale_Knowledge_Nodes,Structural,Skill-to-operation hierarchy
+Data_Integrity_Verification_Agent,Training_Signal_Quality_Assurance,Structural,Agent-to-skill hierarchy
+Training_Signal_Quality_Assurance,Filter_Low_Confidence_Analyst_Overrides,Structural,Skill-to-operation hierarchy
+Graph_Integration_Monitoring_Agent,Integrity_Validation_Skill,Structural,Agent-to-skill hierarchy
+Integrity_Validation_Skill,Simulate_DAG_Path_Integrity,Structural,Skill-to-operation hierarchy
+Graph_Integration_Monitoring_Agent,Onboarding_Lifecycle_Monitor,Structural,Agent-to-skill hierarchy
+Onboarding_Lifecycle_Monitor,Audit_Integration_History,Structural,Skill-to-operation hierarchy
+Municipal_Police_Flight_Agent,Airspace_Anomaly_Detection,Structural,Agent-to-skill hierarchy
+Airspace_Anomaly_Detection,Map_Flight_Path_Anomalies,Structural,Skill-to-operation hierarchy
+Municipal_Police_Flight_Agent,Geospatial_Sensor_Alignment,Structural,Agent-to-skill hierarchy
+Geospatial_Sensor_Alignment,Cross_Reference_Airspace_Permits,Structural,Skill-to-operation hierarchy
+Ingest_Raw_Log_Stream,Identify_Log_Source_Type,Data_Flow,Passes stream for fingerprinting
+Identify_Log_Source_Type,Map_Fields_To_OCSF_Schema,Data_Flow,Source-aware schema transformation
+Map_Fields_To_OCSF_Schema,Validate_Schema_Compliance,Data_Flow,Structure validation sequence
+Validate_Schema_Compliance,Extract_IOCs_IP_Hash_Domain,Data_Flow,Triggers enrichment on valid telemetry
+Triage_Enrichment_Agent,Autonomous_Investigator_Agent,Data_Flow,Validated high-fidelity incident handoff
+Pinpoint_Patient_Zero_Root_Cause,Analyze_Investigator_Findings,Data_Flow,Investigator-to-Remediation root cause handoff
+Emit_Containment_Success_Telemetry,Cache_Active_Session_State_Variables,Data_Flow,Remediation results to Memory loop
+Long_Tail_Entropy_Analysis,Autonomous_Investigator_Agent,Data_Flow,Escalation of stealth C2 beaconing
+Physical_Threat_Intelligence_Agent,Physical_Incident_Response_Agent,Data_Flow,Site-level threat detection trigger
+Remediation_Response_Agent,Physical_Incident_Response_Agent,Control,Simultaneous cyber-physical lockdown command
+Data_Integrity_Verification_Agent,Knowledge_Memory_Agent,Control,Verification flags to block model drift
+Data_Integrity_Verification_Agent,Triage_Enrichment_Agent,Control,Validation flags for incoming stream integrity
+Graph_Integration_Monitoring_Agent,Autonomous_Investigator_Agent,Control,Logic integrity feedback and DAG status
+4. Operational Appendix: Integration and Validation Commands
+To maintain the architectural integrity of the /agents and /onboarding directories, the graph_constructor.py utility in /graph_logic must execute the following validation sequence before any commit to the production SIEM.
+4.1 Atomic Conflict Simulation
+Before integrating any new CSV from the /onboarding directory, a conflict simulation is initiated. This prevents mutation of the live state until the new path is proven stable.
+# Staging simulation
+test_graph = main_graph.copy()
+test_graph.add_nodes_from(onboarding_data)
+test_graph.add_edges_from(onboarding_edges)
+4.2 Directed Acyclic Graph (DAG) Verification
+To prevent infinite logic loops, the Integrity_Validation_Skill executes a cycle detection check.
+import networkx as nx
+if not nx.is_directed_acyclic_graph(test_graph):
+    raise Exception("Integration Rejected: Cyclic dependency detected.")
+4.3 Referential Integrity Check
+The system must ensure that every Level 2 and Level 3 node is correctly parented to a pre-existing or simultaneously onboarded Level 1 Agent.
+for node, data in test_graph.nodes(data=True):
+    parent = data.get('Parent_Node_ID')
+    if parent != 'None' and parent not in test_graph.nodes:
+        raise ValueError(f"Referential Integrity Error: Parent {parent} not found for node {node}.")
+4.4 Explainable AI (XAI) Snapshots
+For compliance and debugging, the system exports periodic snapshots of the global state. These facilitate visual auditing of the system's "Chain of Thought" evolution.
+Export Format: .graphml
+Audit Directory: /graph_logic/snapshots/
