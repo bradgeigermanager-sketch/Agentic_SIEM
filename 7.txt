@@ -1,0 +1,105 @@
+Building the Python components for the Autonomous Investigator Agent involves creating functional logic for its four core skills: Hypothesis Generation Planning, Cross-Telemetry Pivoting, MITRE ATT&CK Mapping, and Artifact Reconstruction
+. As the main orchestrator for dynamic alert analysis, this agent uses "Chain of Thought" planning to investigate validated high-fidelity alerts passed from the Triage Enrichment Agent
+.
+Consistent with the "Graph-as-Code" architecture, these components are designed as modular operations that maintain a Directed Acyclic Graph (DAG) structure
+.
+1. Skill: Hypothesis Generation Planning
+This skill formulates the initial logical next-steps for an investigation using Chain-of-Thought reasoning
+.
+class HypothesisGenerationPlanning:
+    def parse_initial_alert_intent(self, alert_payload):
+        """Operation: Parse_Initial_Alert_Intent - Extracts core indicators [11]."""
+        indicators = {
+            "ips": alert_payload.get("metadata", {}).get("ips", []),
+            "user": alert_payload.get("metadata", {}).get("user_id"),
+            "process": alert_payload.get("metadata", {}).get("process_name")
+        }
+        return indicators
+
+    def select_investigation_playbook_template(self, indicators):
+        """Operation: Select_Investigation_Playbook_Template - Loads matching templates [11]."""
+        # Logic to select template based on indicator type (e.g., suspicious process)
+        return "investigate_suspicious_process_v1"
+
+    def generate_chain_of_thought_sequence(self, template):
+        """Operation: Generate_Chain_of_Thought_Sequence - Outputs logic sequence [12]."""
+        # Multi-Agent Enhancement: Spawn child nodes for parallel testing [13]
+        return ["Trace Ancestry", "Check Sockets", "Identify Persistence"]
+
+    def prioritize_evidence_collection_tasks(self, sequence):
+        """Operation: Prioritize_Evidence_Collection_Tasks - Schedules execution [12]."""
+        return sorted(sequence, key=lambda x: "Ancestry" not in x)
+2. Skill: Cross-Telemetry Pivoting
+This skill constructs and dispatches queries across distributed system segments (SIEM, EDR, Cloud) to gather raw timelines
+.
+class CrossTelemetryPivoting:
+    def compile_targeted_queries(self, indicators, time_offset):
+        """Operation: Compile_Targeted_KQL_SPL_Queries - Constructs scoped strings [12]."""
+        target_ip = indicators['ips'] if indicators['ips'] else "*"
+        return f"DeviceNetworkEvents | where RemoteIP == '{target_ip}' | where TimeGenerated > ago({time_offset})"
+
+    def execute_queries_across_environment(self, query):
+        """Operation: Execute_Queries_Across_SIEM_EDR_Cloud - API dispatch [14]."""
+        # Mock API request to remote monitoring endpoints
+        return [{"timestamp": "2026-06-25T12:00:00Z", "event": "ConnectionSuccess"}]
+
+    def normalize_multi_source_timelines(self, results):
+        """Operation: Normalize_Multi_Source_Timelines - Sequential UTC ordering [14]."""
+        return sorted(results, key=lambda x: x['timestamp'])
+
+    def filter_known_administrative_noise(self, timeline):
+        """Operation: Filter_Out_Known_Administrative_Noise - Discards ops patterns [14]."""
+        return [event for event in timeline if "admin_tool.exe" not in str(event)]
+3. Skill: MITRE ATT&CK Mapping
+This skill identifies behavioral technique taxonomy patterns by analyzing command-line arguments and script payloads
+.
+import base64
+
+class MITREATTACKMapping:
+    def extract_command_line_arguments(self, timeline_event):
+        """Operation: Extract_Command_Line_Arguments - Pulls execution strings [14]."""
+        return timeline_event.get("cmd_line", "")
+
+    def normalize_obfuscated_scripts(self, cmd_line):
+        """Operation: Normalize_Obfuscated_Scripts - Decodes Base64/XOR [15]."""
+        if "base64" in cmd_line.lower():
+            # Simplified decoding example
+            return base64.b64decode(cmd_line.split(" ")[-1]).decode('utf-8', errors='ignore')
+        return cmd_line
+
+    def match_patterns_to_techniques(self, clean_script):
+        """Operation: Match_Patterns_To_ATTACK_Techniques - Threat matrix correlation [15]."""
+        if "powershell" in clean_script and "downloadstring" in clean_script:
+            return "T1059.001" # PowerShell Technique
+        return "Unknown"
+
+    def tag_incident_with_ids(self, incident, technique_id):
+        """Operation: Tag_Incident_With_Technique_IDs - Appends taxonomy codes [15]."""
+        incident["mitre_tags"] = incident.get("mitre_tags", []) + [technique_id]
+        return incident
+4. Skill: Artifact Reconstruction
+This final skill traces evidence lineages to identify the initial point of execution (Patient Zero)
+.
+class ArtifactReconstruction:
+    def trace_parent_child_process_trees(self, incident):
+        """Operation: Trace_Parent_Child_Process_Trees - Reconstructs lineage [15]."""
+        # Automated Forensic Enhancement: Take memory snapshot during reconstruction [13]
+        return {"child": "malicious.exe", "parent": "cmd.exe", "grandparent": "explorer.exe"}
+
+    def correlate_network_sockets_to_pids(self, process_tree):
+        """Operation: Correlate_Network_Sockets_To_PIDs - Binds PIDs to connections [17]."""
+        return {"pid": 4096, "remote_port": 443}
+
+    def identify_persistence_mechanisms(self, process_tree):
+        """Operation: Identify_Persistence_Mechanisms - Inspects registry/cron [17]."""
+        return "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Updates"
+
+    def pinpoint_patient_zero(self, process_tree):
+        """Operation: Pinpoint_Patient_Zero_Root_Cause - Marks initial execution [17]."""
+        root_cause = process_tree.get("grandparent")
+        # Handoff to Remediation Agent via Data_Flow edge [6, 18]
+        return root_cause
+Strategic Implementation
+Once these components are built, the Graph Integration & Monitoring Agent must validate their integration
+. Using the Simulate_DAG_Path_Integrity operation, the system ensures that these investigative operations do not create cyclic dependencies—such as an investigation task pointing back to the initial alert ingestion—maintaining the structural integrity required for autonomous operation
+.
