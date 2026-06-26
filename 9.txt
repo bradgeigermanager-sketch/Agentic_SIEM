@@ -1,0 +1,254 @@
+This checklist consolidates all 24 agents, their associated skills, and operations across the digital, physical, oversight, and municipal domains. This list incorporates the "Improved" and "Enhanced" capabilities established in our conversation history and the source material to serve as a master registry for building code components [History].
+I. Core Digital SIEM Agents
+Triage Enrichment Agent
+Skill: Semantic Log Normalization
+Ingest_Raw_Log_Stream
+Identify_Log_Source_Type
+Map_Fields_To_OCSF_Schema
+Validate_Schema_Compliance
+Skill: Dynamic Intelligence Stitching
+Extract_IOCs_IP_Hash_Domain
+Query_Threat_Intel_APIs
+Aggregate_Reputation_Scores
+Append_Context_To_Alert_Metadata
+Skill: Graph_Based_Asset_Clustering
+Query_Identity_Provider_Logs
+Fetch_CMDB_Asset_Criticality
+Calculate_Blast_Radius_Score
+Map_Network_Adjacency
+Skill: Heuristic_De_duplication
+Hash_Key_Alert_Attributes
+Check_Active_Alert_Time_Windows
+Merge_Related_Events_Into_Incident
+Update_Incident_Severity_Weight
+Enhanced Capabilities: Predictive_Asset_Contextualization, Multi_Modal_Data_Ingestion
+.
+Autonomous Investigator Agent
+Skill: Hypothesis_Generation_Planning
+Parse_Initial_Alert_Intent
+Select_Investigation_Playbook_Template
+Generate_Chain_of_Thought_Sequence
+Prioritize_Evidence_Collection_Tasks
+Skill: Cross_Telemetry_Pivoting
+Compile_Targeted_KQL_SPL_Queries
+Execute_Queries_Across_SIEM_EDR_Cloud
+Normalize_Multi_Source_Timelines
+Filter_Out_Known_Administrative_Noise
+Skill: MITRE_ATTACK_Mapping
+Extract_Command_Line_Arguments
+Normalize_Obfuscated_Scripts
+Match_Patterns_To_ATTACK_Techniques
+Tag_Incident_With_Technique_IDs
+Skill: Artifact_Reconstruction
+Trace_Parent_Child_Process_Trees
+Correlate_Network_Sockets_To_PIDs
+Identify_Persistence_Mechanisms
+Pinpoint_Patient_Zero_Root_Cause
+Enhanced Capabilities: Multi_Agent_Parallel_Hypothesis_Testing, Automated_Forensic_Snapshotting
+.
+Remediation Response Agent
+Skill: Dynamic_Playbook_Synthesis
+Analyze_Investigator_Findings
+Map_Mitigation_Goals_To_Capabilities
+Assemble_API_Execution_Sequence
+Compile_Python_SOAR_Script_Block
+Skill: Blast_Radius_Guardrail_Validation
+Check_Asset_Exclusion_Lists
+Verify_Impact_On_Production_Services
+Evaluate_Active_Change_Windows
+Trigger_Human_Approval_If_High_Risk
+Skill: API_Driven_Infrastructure_Containment
+Request_Scoped_API_Tokens
+Issue_EDR_Isolate_Host_Command
+Push_Firewall_Block_Rules
+Revoke_IAM_User_Sessions
+Skill: Post_Action_Verification
+Poll_Target_Host_Status
+Analyze_Post_Isolation_Network_Flows
+Verify_Process_Termination_Status
+Emit_Containment_Success_Telemetry
+Enhanced Capabilities: Pre_Flight_Simulation_Mode, Just_In_Time_Playbook_Synthesis
+.
+Knowledge Memory Agent
+Skill: Hierarchical_Memory_Management
+Cache_Active_Session_State_Variables
+Summarize_Closed_Incident_Context
+Commit_Key_Learnings_To_Long_Term_Store
+Prune_Stale_Ephemere_Context
+Skill: Feedback_Loop_Integration
+Monitor_Human_Analyst_Overrides
+Calculate_Embedding_Distance_Adjustments
+Tune_Agent_Prompt_Weights
+Flag_Systemic_False_Positive_Triggers
+Skill: Explainable_AI_Synthesis
+Compile_Cross_Agent_Execution_Logs
+Generate_Human_Readable_Case_Narrative
+Format_Evidence_As_Structured_JSON_Markdown
+Export_Executive_Summary_Reports
+Skill: RAG_Document_Engineering
+Ingest_Internal_Architecture_Wiki_Pages
+Chunk_Text_By_Semantic_Boundaries
+Generate_Vector_Embeddings
+Upsert_Vectors_To_Knowledge_DB
+Enhanced Capabilities: Federated_Learning, Explainable_AI_Debug_Mode
+.
+Proactive Threat Hunting Agent
+Skill: Baseline_Anomaly_Detection
+Ingest_Historical_Behavior_Profiles
+Calculate_Statistical_Deviations
+Flag_Unusual_Authentication_Times
+Isolate_Outlier_Data_Exfiltration_Volumes
+Skill: Hypothesis_Driven_Crawling
+Ingest_Emerging_Zero_Day_Reports
+Extract_New_Exploit_Patterns
+Generate_Fleet_Wide_Scan_Queries
+Execute_Passive_Log_Review
+Skill: Adversarial_Emulation_Modeling
+Ingest_Network_Topology_Graph
+Simulate_Lateral_Movement_Paths
+Identify_Missing_Detection_Choke_Points
+Generate_Synthetic_Attacker_Telemetry
+Skill: Long_Tail_Analysis
+Aggregate_Low_Frequency_Connection_Logs
+Calculate_Beaconing_Interval_Periodicities
+Filter_Out_Legitimate_Cloud_Keep_Alives
+Escalate_Persistent_Low_Signal_C2
+Enhanced Capabilities: Adversarial_Red_Team_Integration, Long_Tail_Entropy_Analysis
+.
+II. Cyber-Physical Security Agents (PSOC)
+Physical Threat Intelligence Agent
+Skill: Site_Wide_Anomaly_Detection
+Ingest_Badge_Swipe_Logs
+Map_Motion_Sensor_Patterns
+Baseline_Entry_Exit_Frequency
+Skill: Physical_Digital_Correlation
+Correlate_Failed_Badge_With_Login
+Verify_Geospatial_Consistency
+Trigger_Unified_Security_Alert
+Physical Incident Response Agent
+Skill: Dynamic_Physical_Mitigation
+Trigger_Localized_Silent_Alarm
+Command_Automated_Door_Locking
+Dispatch_On_Site_Security_Teams
+Skill: Physical_Guardrail_Validation
+Check_Fire_Code_Egress_Compliance
+Assess_Evacuation_Route_Status
+Override_If_Life_Safety_Risk
+Device Lifecycle Agent
+Skill: Edge_Asset_Contextualization
+Ingest_Firmware_MAC_Hardware_Data
+Validate_Physical_Location_Registry
+Assign_Device_Trust_Score
+Skill: Behavioral_Baseline_for_IoT
+Monitor_Fixed_Communication_Paths
+Flag_Unauthorized_Device_Traffic
+Update_Investigation_Agent_Context
+III. Oversight and Integrity Agents
+Data Integrity & Verification Agent
+Skill: Telemetry_Accuracy_Validation
+Validate_Schema_Consistency
+Detect_Data_Drift
+Skill: Recorded_Condition_Audit
+Verify_Contextual_Accuracy
+Flag_Stale_Knowledge_Nodes
+Skill: Training_Signal_Quality_Assurance
+Filter_Low_Confidence_Analyst_Overrides
+Validate_Reward_Signal_Integrity
+Graph Integration & Monitoring Agent
+Skill: Integrity_Validation_Skill
+Simulate_DAG_Path_Integrity
+Reject_Cyclic_Dependencies
+Skill: Onboarding_Lifecycle_Monitor
+Audit_Integration_History
+IV. Municipal Police Flight & Jurisdictional Suites
+Command Dispatch Agent
+Skill: Incident Triage Routing
+Score_Incoming_Reports_By_Urgency
+Route_Incident_To_Specialized_Unit
+Dynamic_Resource_Weighting [History]
+Criminal Intelligence Agent
+Skill: Pattern Recognition Profiling
+Aggregate_Jurisdictional_Records
+Identify_Serial_Suspect_Signatures
+Map_Crime_Geospatial_Density [History]
+Tactical Operations Agent
+Skill: Precision Response Logistics
+Authorize_Targeted_Containment
+Execute_Perimeter_Lockdown
+Deploy_Mobile_Observation_Drones [History]
+Community Relations Agent
+Skill: Public Information Dissemination
+Generate_Public_Alert_Summaries
+Authorize_Media_Release_Content
+Skill: Community Engagement Analysis
+Monitor_Social_Media_Sentiment
+Catalog_Community_Feedback_Themes
+Skill: Crisis Communication Response
+Synthesize_De_escalation_Narrative
+Flag_Misinformation_Campaigns [History]
+Legal Counsel Agent
+Skill: Statutory Admissibility Review
+Validate_Incident_Chain_of_Custody
+Flag_Inadmissible_Evidence
+Skill: Legal Discovery Automation
+Automate_FOIA_Redaction
+Compile_Discovery_Production_Packets [History]
+Skill: Liability Risk Mitigation
+Evaluate_Use_of_Force_Liability
+Issue_Cease_and_Desist_Advisory [History]
+City Council Agent
+Skill: Legislative Policy Alignment
+Update_Jurisdictional_Policy_Context
+Redact_Restricted_Biometric_Data [History]
+Skill: Budgetary Resource Governance
+Audit_Asset_Utilization_Efficiency
+Set_Operational_Priority_Weights [History]
+Skill: Municipal Transparency Oversight
+Generate_Policy_Compliance_Report
+Validate_Public_Disclosure_Redactions [History]
+V. Emergency & Border Security Suite
+Emergency Management Agent
+Skill: Disaster Resource Coordination
+Mobilize_Inter_Agency_Task_Force
+Forecast_Disaster_Resource_Demand
+Sync_Regional_Federated_Crisis_Data [History]
+Skill: Public Safety Crisis Messaging
+Generate_Evacuation_Route_Updates
+Skill: Infrastructure Resilience Monitoring
+Flag_Critical_Infrastructure_Failure [History]
+Customs & Border Suite
+Agent: Port of Entry Agent
+Skill: Biometric Entry Screening
+Verify_Identity_Against_Global_Watchlists
+Dynamic_Risk_Based_Screening_Tuning [History]
+Skill: Anatomical Anomaly Detection
+Process_Radiographic_Imaging_Telemetry
+Detect_Subsurface_Thermal_Anomalies
+Flag_Suspected_Internal_Contraband
+Authorize_Secondary_Medical_Inspection [History]
+Agent: Cargo Screening Agent
+Skill: Automated Manifest Audit
+Cross_Check_Consignee_Trust_Scores
+Identify_Undeclared_Hazardous_Materials
+Map_Cargo_Supply_Chain_Graph [History]
+Agent: Border Patrol Coordination Agent
+Skill: Adversarial Movement Tracking
+Analyze_Seismic_and_Acoustic_Triggers
+Coordinate_Remote_Drone_Interception
+Optimize_Autonomous_Patrol_Paths [History]
+VI. Business Office Staff Suite
+Procurement Logistics Agent
+Skill: Supply Chain Risk Assessment
+Verify_Vendor_Cyber_Certification
+Detect_Counterfeit_Hardware_Signatures
+Calculate_Vendor_Trust_Decay [History]
+HR Security Compliance Agent
+Skill: Onboarding_Offboarding_Audit
+Trigger_Immediate_Access_Revocation
+Monitor_Privileged_User_Baseline
+Model_Proactive_Insider_Risk [History]
+Finance and Audit Agent
+Skill: Financial Anomaly Detection
+Flag_Unauthorized_Wire_Transfer_Attempts
+Audit_Expense_Submission_Patterns
+Generate_Remediation_ROI_Audit [History]
