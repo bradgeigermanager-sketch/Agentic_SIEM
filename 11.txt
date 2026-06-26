@@ -1,0 +1,570 @@
+Technical Role Manifest: Municipal Police Flight Agentic SIEM Graph
+1. System Architectural Framework
+The Municipal Police Flight Agentic SIEM is a high-fidelity cyber-physical security platform architected as a Directed Acyclic Graph (DAG). This system is engineered for total convergence, ingesting telemetry from traditional digital endpoints and physical security hardware (RFID, badge readers, IoT sensors) into a unified investigative plane.
+The operational philosophy follows a "Validation-First" protocol: no node update, telemetry schema, or remediation playbook is committed to the production graph without passing atomic structural integrity checks. The system adheres to a three-level functional hierarchy:
+Level 1: Agents – Domain-specific orchestrators (Police Flight Roles).
+Level 2: Skills – Functional capabilities and logic modules assigned to agents.
+Level 3: Operations – Atomic, executable tasks and API-driven maneuvers.
+All definitions in the following manifest utilize the core schema: Node_ID, Node_Type, Parent_Node_ID, Depth_Level, and Description.
+2. Municipal Police Flight: Agent Role Definitions
+Agent 1: Command Dispatch (Triage & Enrichment)
+Role Description: The primary ingestion hub for the "Flight." It normalizes disparate digital logs and physical telemetry (RFID, badge swipes) into OCSF-compliant formats. It manages initial deduplication and asset contextualization.
+SIEM Counterpart: Triage Enrichment Agent / Physical Triage Enrichment Agent.
+Agent 2: Criminal Intelligence (Investigator & Threat Hunter)
+Role Description: The investigative engine of the system. It orchestrates complex hypothesis generation, cross-telemetry pivoting between network flows and physical motion sensors, and identifies "Patient Zero" through artifact reconstruction.
+SIEM Counterpart: Autonomous Investigator / Proactive Threat Hunting / Physical Threat Intelligence Agent.
+Agent 3: Tactical Operations (Remediation & Response)
+Role Description: The enforcement arm. It synthesizes real-time SOAR playbooks to contain digital threats (EDR isolation) and physical breaches (automated door locking), ensuring post-action verification.
+SIEM Counterpart: Remediation Response Agent / Physical Incident Response Agent.
+Agent 4: Professional Standards (Data Integrity & Graph Monitoring)
+Role Description: The architectural gatekeeper. This role monitors the SIEM for "model drift," ensures the integrity of training signals, and validates all new DAG path integrations to prevent cyclic dependencies.
+SIEM Counterpart: Data Integrity & Verification / Graph Integration & Monitoring Agent.
+Agent 5: Community Relations (Knowledge Memory & Explainable AI)
+Role Description: The repository of institutional knowledge. It manages hierarchical memory, converts documentation into system-usable RAG chunks, and generates human-readable narratives of every incident.
+SIEM Counterpart: Knowledge Memory Agent.
+Agent 6: Legal Counsel (Guardrails & Compliance)
+Role Description: The compliance validator. It performs "Pre-Flight" simulations on all Tactical Operations, checking against fire codes (egress safety) and production "Blast Radius" stability bounds.
+SIEM Counterpart: Blast Radius Guardrail Validation / Physical Guardrail Validation modules.
+Agent 7: City Council (Audit & Executive Oversight)
+Role Description: The reporting and transparency layer. It generates executive-level audit trails and compliance summaries, documenting every system decision for historical review.
+SIEM Counterpart: Explainable AI Synthesis (Executive Reporting tier).
+3. Consolidated Technical Node Manifest (CSV Format)
+Node_ID
+Node_Type
+Parent_Node_ID
+Depth_Level
+Description
+Command_Dispatch_Agent
+Agent
+None
+1
+Hub for log normalization and asset contextualization
+Semantic_Log_Normalization
+Skill
+Command_Dispatch_Agent
+2
+Normalizes raw logs to OCSF-compliant schemas
+Ingest_Raw_Log_Stream
+Operation
+Semantic_Log_Normalization
+3
+Ingests raw digital and physical sensor streams
+Identify_Log_Source_Type
+Operation
+Semantic_Log_Normalization
+3
+Fingerprints log signatures for parser selection
+Map_Fields_To_OCSF_Schema
+Operation
+Semantic_Log_Normalization
+3
+Maps raw JSON/Key-Value pairs to OCSF fields
+Validate_Schema_Compliance
+Operation
+Semantic_Log_Normalization
+3
+Verifies structural integrity of normalized output
+Dynamic_Intelligence_Stitching
+Skill
+Command_Dispatch_Agent
+2
+Enriches telemetry with real-time threat intel
+Extract_IOCs_IP_Hash_Domain
+Operation
+Dynamic_Intelligence_Stitching
+3
+Parses indicators from normalized telemetry
+Query_Threat_Intel_APIs
+Operation
+Dynamic_Intelligence_Stitching
+3
+Fetches reputation data from external APIs
+Aggregate_Reputation_Scores
+Operation
+Dynamic_Intelligence_Stitching
+3
+Synthesizes a unified threat score for indicators
+Append_Context_To_Alert_Metadata
+Operation
+Dynamic_Intelligence_Stitching
+3
+Commits enriched context to the alert object
+Graph_Based_Asset_Clustering
+Skill
+Command_Dispatch_Agent
+2
+Maps alerts to identity and physical assets
+Query_Identity_Provider_Logs
+Operation
+Graph_Based_Asset_Clustering
+3
+Correlates user IDs with active session data
+Fetch_CMDB_Asset_Criticality
+Operation
+Graph_Based_Asset_Clustering
+3
+Determines priority based on business value
+Calculate_Blast_Radius_Score
+Operation
+Graph_Based_Asset_Clustering
+3
+Estimates potential lateral movement impact
+Map_Network_Adjacency
+Operation
+Graph_Based_Asset_Clustering
+3
+Identifies topologically connected systems
+Predictive_Asset_Contextualization
+Skill
+Command_Dispatch_Agent
+2
+Learns false-positive patterns of frequent assets
+Monitor_FP_Asset_Frequency
+Operation
+Predictive_Asset_Contextualization
+3
+Tracks assets causing repeated benign triggers
+Adjust_Asset_Sensitivity_Weights
+Operation
+Predictive_Asset_Contextualization
+3
+Dynamically lowers noise scores for verified scanners
+Physical_Telemetry_Normalization
+Skill
+Command_Dispatch_Agent
+2
+Normalizes badge and RFID sensor data
+Ingest_Badge_Swipe_Logs
+Operation
+Physical_Telemetry_Normalization
+3
+Processes raw physical access control events
+Map_Physical_Zone_IDs
+Operation
+Physical_Telemetry_Normalization
+3
+Translates sensor IDs to geospatial site zones
+Criminal_Intelligence_Agent
+Agent
+None
+1
+Orchestrates investigations and threat hunting
+Hypothesis_Generation_Planning
+Skill
+Criminal_Intelligence_Agent
+2
+Formulates logic sequences for forensic inquiry
+Parse_Initial_Alert_Intent
+Operation
+Hypothesis_Generation_Planning
+3
+Identifies the core suspicion in the triage handoff
+Select_Investigation_Playbook
+Operation
+Hypothesis_Generation_Planning
+3
+Loads templates matching the threat profile
+Generate_Chain_of_Thought_Sequence
+Operation
+Hypothesis_Generation_Planning
+3
+Produces sequential investigation logic steps
+Multi_Agent_Parallel_Hypothesis_Testing
+Skill
+Criminal_Intelligence_Agent
+2
+Spawns child nodes for competing theories
+Spawn_Parallel_Investigator_Nodes
+Operation
+Multi_Agent_Parallel_Hypothesis_Testing
+3
+Creates sub-processes for alternative root causes
+Rank_Competing_Theories
+Operation
+Multi_Agent_Parallel_Hypothesis_Testing
+3
+Evaluates probability of different attack vectors
+Cross_Telemetry_Pivoting
+Skill
+Criminal_Intelligence_Agent
+2
+Queries across SIEM, EDR, and Physical sensors
+Compile_Targeted_Queries
+Operation
+Cross_Telemetry_Pivoting
+3
+Constructs KQL/SPL strings for multi-source search
+Execute_Queries_Across_Pools
+Operation
+Cross_Telemetry_Pivoting
+3
+Dispatches API searches to distributed segments
+Normalize_Multi_Source_Timelines
+Operation
+Cross_Telemetry_Pivoting
+3
+Reconstructs events in chronological UTC order
+MITRE_ATTACK_Mapping
+Skill
+Criminal_Intelligence_Agent
+2
+Identifies behavioral technique patterns
+Extract_Command_Line_Arguments
+Operation
+MITRE_ATTACK_Mapping
+3
+Parses execution strings for TTP indicators
+Match_Patterns_To_ATTACK_Matrix
+Operation
+MITRE_ATTACK_Mapping
+3
+Correlates behavior to standard technique IDs
+Artifact_Reconstruction
+Skill
+Criminal_Intelligence_Agent
+2
+Traces evidence lineages to find root cause
+Trace_Parent_Child_Process_Trees
+Operation
+Artifact_Reconstruction
+3
+Maps execution lineage from initial binary
+Pinpoint_Patient_Zero_Root_Cause
+Operation
+Artifact_Reconstruction
+3
+Identifies the specific entry point of infection
+Baseline_Anomaly_Detection
+Skill
+Criminal_Intelligence_Agent
+2
+Monitors for deviations from historical norms
+Calculate_Statistical_Deviations
+Operation
+Baseline_Anomaly_Detection
+3
+Computes variance in authentication and volume
+Hypothesis_Driven_Crawling
+Skill
+Criminal_Intelligence_Agent
+2
+Proactively searches for emerging threats
+Ingest_Zero_Day_Advisories
+Operation
+Hypothesis_Driven_Crawling
+3
+Parses new exploit patterns from external feeds
+Site_Wide_Anomaly_Detection
+Skill
+Criminal_Intelligence_Agent
+2
+Baselines physical movement and access patterns
+Map_Motion_Sensor_Patterns
+Operation
+Site_Wide_Anomaly_Detection
+3
+Analyzes occupancy/motion across site zones
+Physical_Digital_Correlation
+Skill
+Criminal_Intelligence_Agent
+2
+Links physical proximity to digital logins
+Correlate_Badge_With_VPN
+Operation
+Physical_Digital_Correlation
+3
+Flags logins from sites where user is not present
+Tactical_Operations_Agent
+Agent
+None
+1
+Arm for containment and active remediation
+Dynamic_Playbook_Synthesis
+Skill
+Tactical_Operations_Agent
+2
+Composes conditional code steps for response
+Assemble_API_Execution_Sequence
+Operation
+Dynamic_Playbook_Synthesis
+3
+Orders tasks based on dependency constraints
+Just_In_Time_Playbook_Synthesis
+Skill
+Tactical_Operations_Agent
+2
+Generates custom SOAR logic for edge cases
+Compile_Custom_SOAR_Script_Block
+Operation
+Just_In_Time_Playbook_Synthesis
+3
+Outputs verified logic blocks for execution
+API_Driven_Infrastructure_Containment
+Skill
+Tactical_Operations_Agent
+2
+Executes containment via security toolsets
+Issue_EDR_Isolate_Host_Command
+Operation
+API_Driven_Infrastructure_Containment
+3
+Triggers network blocks at the endpoint level
+Push_Firewall_Block_Rules
+Operation
+API_Driven_Infrastructure_Containment
+3
+Updates perimeters to block malicious IPs
+Revoke_IAM_User_Sessions
+Operation
+API_Driven_Infrastructure_Containment
+3
+Terminates active cloud/web identity tokens
+Dynamic_Physical_Mitigation
+Skill
+Tactical_Operations_Agent
+2
+Orchestrates site-level countermeasures
+Command_Automated_Door_Locking
+Operation
+Dynamic_Physical_Mitigation
+3
+Issues API command to lock physical entry points
+Trigger_Localized_Silent_Alarm
+Operation
+Dynamic_Physical_Mitigation
+3
+Activates zone-specific alarm protocols
+Post_Action_Verification
+Skill
+Tactical_Operations_Agent
+2
+Confirms neutralization and site stability
+Verify_Process_Termination_Status
+Operation
+Post_Action_Verification
+3
+Queries endpoints to ensure bad PIDs stayed dead
+Professional_Standards_Agent
+Agent
+None
+1
+Oversight of data integrity and graph logic
+Telemetry_Accuracy_Validation
+Skill
+Professional_Standards_Agent
+2
+Verifies integrity of ingested logs/schema
+Detect_Data_Drift
+Operation
+Telemetry_Accuracy_Validation
+3
+Monitors anomalies in log volume and format
+Recorded_Condition_Audit
+Skill
+Professional_Standards_Agent
+2
+Audits historical context and RAG chunks
+Flag_Stale_Knowledge_Nodes
+Operation
+Recorded_Condition_Audit
+3
+Marks outdated documentation nodes for removal
+Training_Signal_Quality_Assurance
+Skill
+Professional_Standards_Agent
+2
+Ensures fidelity of the feedback loop
+Validate_Reward_Signal_Integrity
+Operation
+Training_Signal_Quality_Assurance
+3
+Guards against adversarial feedback injection
+Integrity_Validation_Skill
+Skill
+Professional_Standards_Agent
+2
+Validates data against graph topology
+Simulate_DAG_Path_Integrity
+Operation
+Integrity_Validation_Skill
+3
+Runs cycle detection on all proposed updates
+Onboarding_Lifecycle_Monitor
+Skill
+Professional_Standards_Agent
+2
+Tracks the history of integrated data files
+Audit_Integration_History
+Operation
+Onboarding_Lifecycle_Monitor
+3
+Logs all file ingestion events for audit
+Community_Relations_Agent
+Agent
+None
+1
+Manager of memory and explainable narratives
+Hierarchical_Memory_Management
+Skill
+Community_Relations_Agent
+2
+Manages long-term vector store and sessions
+Commit_Learnings_To_Long_Term_Store
+Operation
+Hierarchical_Memory_Management
+3
+Saves incident context into permanent memory
+Explainable_AI_Synthesis
+Skill
+Community_Relations_Agent
+2
+Generates audit timelines and reports
+Generate_Human_Readable_Narrative
+Operation
+Explainable_AI_Synthesis
+3
+Translates graph logic into natural language
+Explainable_AI_Debug_Mode
+Skill
+Community_Relations_Agent
+2
+Exports visual traces of system decisions
+Export_Mermaid_Logic_Trace
+Operation
+Explainable_AI_Debug_Mode
+3
+Outputs decision-path diagrams for analysts
+Legal_Counsel_Agent
+Agent
+None
+1
+Evaluator of guardrails and safety compliance
+Blast_Radius_Guardrail_Validation
+Skill
+Legal_Counsel_Agent
+2
+Validates actions against stability bounds
+Check_Asset_Exclusion_Lists
+Operation
+Blast_Radius_Guardrail_Validation
+3
+Ensures critical production hosts are protected
+Physical_Guardrail_Validation
+Skill
+Legal_Counsel_Agent
+2
+Validates actions against fire and life safety
+Check_Fire_Code_Egress_Compliance
+Operation
+Physical_Guardrail_Validation
+3
+Ensures lockdowns don't block exit paths
+City_Council_Agent
+Agent
+None
+1
+Executive audit and long-term reporting
+Executive_Audit_Reporting
+Skill
+City_Council_Agent
+2
+Synthesizes high-level compliance data
+Export_Executive_Summary_Reports
+Operation
+Executive_Audit_Reporting
+3
+Outputs standardized reports for stakeholders
+4. Operational Edge & Data Flow Logic
+Source_ID
+Target_ID
+Edge_Type
+Description
+Command_Dispatch_Agent
+Criminal_Intelligence_Agent
+Data_Flow
+Handoff: Validated high-fidelity alert for investigation
+Criminal_Intelligence_Agent
+Tactical_Operations_Agent
+Data_Flow
+Handoff: Root cause and mitigation goals for response
+Tactical_Operations_Agent
+Legal_Counsel_Agent
+Data_Flow
+Request: Pre-flight safety validation of SOAR plan
+Legal_Counsel_Agent
+Tactical_Operations_Agent
+Control_Edge
+Result: Approval or Rejection of mitigation commands
+Tactical_Operations_Agent
+Community_Relations_Agent
+Data_Flow
+Commit: Outcome data and success telemetry to memory
+Professional_Standards_Agent
+Command_Dispatch_Agent
+Control_Edge
+Oversight: Real-time validation flags on raw telemetry
+Community_Relations_Agent
+City_Council_Agent
+Data_Flow
+Reporting: Processed narratives for executive review
+Professional_Standards_Agent
+City_Council_Agent
+Data_Flow
+Audit: Logs of graph modifications and onboarding
+Command_Dispatch_Agent
+Semantic_Log_Normalization
+Structural
+Hierarchy: Agent to Skill
+Semantic_Log_Normalization
+Ingest_Raw_Log_Stream
+Structural
+Hierarchy: Skill to Operation
+Criminal_Intelligence_Agent
+Cross_Telemetry_Pivoting
+Structural
+Hierarchy: Agent to Skill
+Cross_Telemetry_Pivoting
+Compile_Targeted_Queries
+Structural
+Hierarchy: Skill to Operation
+Tactical_Operations_Agent
+Dynamic_Physical_Mitigation
+Structural
+Hierarchy: Agent to Skill
+Dynamic_Physical_Mitigation
+Command_Automated_Door_Locking
+Structural
+Hierarchy: Skill to Operation
+Professional_Standards_Agent
+Integrity_Validation_Skill
+Structural
+Hierarchy: Agent to Skill
+Integrity_Validation_Skill
+Simulate_DAG_Path_Integrity
+Structural
+Hierarchy: Skill to Operation
+Legal_Counsel_Agent
+Physical_Guardrail_Validation
+Structural
+Hierarchy: Agent to Skill
+Physical_Guardrail_Validation
+Check_Fire_Code_Egress_Compliance
+Structural
+Hierarchy: Skill to Operation
+5. Enhanced Agentic Capability Modules
+Predictive Contextualization Logic: Allows Command Dispatch to reduce noise by baselining assets that frequently trigger false positives (e.g., vulnerability scanners). It dynamically adjusts sensitivity weights to ensure true anomalies stand out.
+Multi-Agent Parallel Hypothesis Testing: Criminal Intelligence can initiate competing investigator sub-nodes to explore different attack vectors (e.g., compromised credentials vs. exploit) simultaneously, speeding up root-cause identification.
+Pre-Flight Simulation: Legal Counsel runs all proposed Tactical Operations against a digital twin of the network and physical site. This ensures containment actions do not violate fire safety codes or disconnect critical production infrastructure.
+Explainable AI Debug Mode: Community Relations provides transparency by exporting a Mermaid-style visual trace of every decision path. This allows the City Council and human analysts to audit the exact logic used to trigger a remediation.
+6. Graph Constructor Implementation Requirements
+The Python-based Graph Constructor that ingests this manifest must adhere to the following architectural standards:
+Mandatory Cycle Detection: The constructor must execute nx.is_directed_acyclic_graph(G) on every merge. If False, the integration must be aborted.
+Atomic Integration Pattern: New CSV data must be loaded into a main_graph.copy(). Only after structural validation and referential integrity checks pass should the copy overwrite the production main_graph.
+Referential Integrity Verification: The script must iterate through the manifest and verify that for every Parent_Node_ID, a corresponding Node_ID exists within the graph.
+Audit Logging: Every integration attempt (Source, Timestamp, Success/Failure, Error Code) must be logged and made available to the Professional Standards agent.
+7. Final Structural Validation Directive
+For all subsequent LLM processing and graph construction:
+Orphan Prevention: Ensure that every Level 3 Operation maps to a Level 2 Skill, and every Level 2 Skill maps to a Level 1 Agent defined in the Node_ID manifest.
+Schema Strictness: Maintain the Node_ID, Node_Type, Parent_Node_ID, Depth_Level, Description header structure for CSV compatibility.
+No Non-Text Elements: Do not generate interactive widgets, executable code outside of the text-based CSV strings, or non-renderable scripts.
+DAG Consistency: Every edge in the edges.csv must follow the direction from Parent to Child for structural edges or Source to Target for flow edges, maintaining a acyclic property.
